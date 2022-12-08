@@ -13,7 +13,7 @@ public class SmurfEntity implements EntityBase{
     private Sprite spritesheet = null; // using Sprite class
 
     private boolean isDone = false;
-    private float xPos = 0, yPos = 0;
+    private int xPos = 0, yPos = 0;
 
     private boolean isInit = false;
 

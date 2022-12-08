@@ -29,7 +29,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
-                <category android:name="android.intent.category.LAUNCHER"></category>
+                <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
         </activity>
 
