@@ -66,4 +66,10 @@ public class Sprite  {
         startFrame = _start;
         endFrame = _end;
     }
+    public int GetWidth(){
+        return width;
+    }
+    public int GetHeight(){
+        return height;
+    }
 }
