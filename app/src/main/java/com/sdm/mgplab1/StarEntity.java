@@ -1,4 +1,5 @@
-package com.sdm.mgp2022;
+package com.sdm.mgplab1;
+
 
 // Created by TanSiewLan2022
 // Sample Entity 
