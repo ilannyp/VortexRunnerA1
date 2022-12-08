@@ -27,9 +27,9 @@ public class SmurfEntity implements EntityBase{
 
     //@Override
     public void Init(SurfaceView _view){
-        bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.smurf_sprite);
+        spritesheet = new Sprite(ResourceManager.Instance.GetBitmap(R.drawable.smurf_sprite),
+                4,4, 16);
 
-        spritesheet = new Sprite(bmp, 4,4,16);
         xPos = _view.getWidth() / 2;
         yPos = _view.getHeight() / 2;
 
@@ -56,6 +56,7 @@ public class SmurfEntity implements EntityBase{
     }
     public void Render(Canvas _canvas) {
         spritesheet.Render(_canvas, xPos,yPos);
+
     }
     public boolean IsInit() {
         return bmp != null;
