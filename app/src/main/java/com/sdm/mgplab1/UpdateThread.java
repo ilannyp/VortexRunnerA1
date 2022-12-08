@@ -1,5 +1,6 @@
 package com.sdm.mgplab1;
 
+
 // Created by TanSiewLan2021
 
 // Need a delicated thread to run Surfaceview's update method
