@@ -1,13 +1,14 @@
 package com.sdm.mgplab1;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.SurfaceView;
 
-
+import java.security.PublicKey;
 public class SmurfEntity implements EntityBase{
-//public class SmurfEntity implements EntityBase, Collidable {
-// Comment for now and use if code from Slide no 7 is type in
+
+
 
     private Bitmap bmp = null;
     private Sprite spritesheet=null;//using Sprite Class
@@ -27,9 +28,9 @@ public class SmurfEntity implements EntityBase{
 
     //@Override
     public void Init(SurfaceView _view){
-        spritesheet = new Sprite(ResourceManager.Instance.GetBitmap(R.drawable.smurf_sprite),
-                4,4, 16);
+        bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.smurf_sprite);
 
+        spritesheet = new Sprite(bmp, 4,4,16);
         xPos = _view.getWidth() / 2;
         yPos = _view.getHeight() / 2;
 
@@ -56,7 +57,6 @@ public class SmurfEntity implements EntityBase{
     }
     public void Render(Canvas _canvas) {
         spritesheet.Render(_canvas, xPos,yPos);
-
     }
     public boolean IsInit() {
         return bmp != null;
@@ -78,4 +78,5 @@ public class SmurfEntity implements EntityBase{
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_SMURF);
         return result;
     }
+
 }
