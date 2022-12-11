@@ -1,9 +1,6 @@
 package com.sdm.mgplab1;
 
-import android.app.Activity;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.view.SurfaceView;
 
 // Created by TanSiewLan2021
@@ -22,6 +19,7 @@ public class MainGameSceneState implements StateBase {
         RenderBackground.Create();
         // Example to include another Renderview for Pause Button
         SmurfEntity.Create(); // For week 7
+        PauseButtonEntity.Create();
 
     }
 
