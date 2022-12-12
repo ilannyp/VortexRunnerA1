@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceView;
 
-public class SmurfEntity implements EntityBase , Collidable{
+public class SmurfEntityTest implements EntityBase , Collidable{
 
     private Bitmap bmp = null;
     private Sprite spritesheet=null;//using Sprite Class
@@ -15,12 +15,6 @@ public class SmurfEntity implements EntityBase , Collidable{
     private int xPos = 0, yPos = 0;
     private boolean hasTouched = false;
     protected static final String TAG = null;
-    private int store_xPos = 0, store_yPos = 0;
-    public static int gravity = 9;
-    public static int JumpForce = 130;
-    public static int floor = 569;
-    private boolean jump = false;
-
 
     public boolean IsDone() {
         return isDone;
@@ -36,18 +30,17 @@ public class SmurfEntity implements EntityBase , Collidable{
         bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.smurf_sprite);
 
         spritesheet = new Sprite(bmp, 4,4,16);
-        xPos = 296;
-        yPos = floor;
+        xPos = _view.getWidth() / 2 + 50;
+        yPos = _view.getHeight() / 2;
 
         isInit = true;
 
     }
     public void Update(float _dt) {
+
         spritesheet.Update(_dt);
-        StorePositionForRollback();
-        ApplyGravity();
-        CheckGround();
-        CheckJump(_dt);
+        AddForceTowardsLeft(5);
+        //Log.v(TAG,"x: " + xPos + " y " + yPos);
 
 //        //addon codes provide on slides from week 6 -- Slide no.7
         if(TouchManager.Instance.HasTouch()){
@@ -56,18 +49,12 @@ public class SmurfEntity implements EntityBase , Collidable{
             if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(),TouchManager.Instance.GetPosY(),0.0f,xPos,yPos,imgRad)){
                 //Collided
                 hasTouched = true;
-                //Log.v(TAG,"Touch SmurfEntity");
-                //xPos = TouchManager.Instance.GetPosX();
-                //yPos = TouchManager.Instance.GetPosY();
-                if(yPos == floor)
-                {
-                    jump = true;
 
-                }
+                xPos = TouchManager.Instance.GetPosX();
+                yPos = TouchManager.Instance.GetPosY();
+
             }
         }
-
-
     }
     public void Render(Canvas _canvas) {
         spritesheet.Render(_canvas, xPos,yPos);
@@ -87,15 +74,15 @@ public class SmurfEntity implements EntityBase , Collidable{
         return ENTITY_TYPE.ENT_SMURF;
     }
 
-    public static SmurfEntity Create(){
-        SmurfEntity result = new SmurfEntity();
+    public static SmurfEntityTest Create(){
+        SmurfEntityTest result = new SmurfEntityTest();
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_SMURF);
         return result;
     }
 
     @Override
     public String GetType() {
-        return "SmurfEntity";
+        return "SmurfEntityTest";
     }
 
     @Override
@@ -110,66 +97,30 @@ public class SmurfEntity implements EntityBase , Collidable{
 
     @Override
     public float GetRadius() {
-
         return 55.0f;
     }
 
     @Override
     public void OnHit(Collidable _other) {
-        //RollbackPosition();
+        //Log.v(TAG,"SmurfEnityTest colliding with"+ _other);
+        _other.SetPosX(_other.GetPosX() - 5);
 
     }
 
     @Override
     public void SetPosX(float _newX) {
         xPos = (int) _newX;
+
     }
 
     @Override
     public void SetPosY(float _newY) {
         yPos = (int) _newY;
-    }
-
-    public void StorePositionForRollback(){
-        store_xPos = xPos;
-        store_yPos = yPos;
-    }
-
-    public void RollbackPosition(){
-        xPos = store_xPos;
-        yPos = store_yPos;
-    }
-    public void RollbackPositionX(){
-        xPos = store_xPos;
 
     }
-    public void RollbackPositionY(){
-        yPos = store_yPos;
-    }
 
-    public void ApplyGravity(){
-        yPos += gravity;
-        //Log.v(TAG,"yPos" + yPos);
+    public float AddForceTowardsLeft(int amount){
+        xPos -= amount;
+        return amount;
     }
-    public void CheckGround(){
-        if(yPos >= floor)
-        {
-            yPos = floor;
-            //vely = 0.0f;
-        }
-    }
-    public void CheckJump(float _dt){
-        //if(yPos == floor)
-        //{
-            if (jump){
-                yPos -= (JumpForce * _dt) + 20;
-                if(yPos <= 430)
-                {
-                    Log.v(TAG,"jump" + yPos);
-                    jump = false;
-                }
-           // }
-        }
-    }
-
 }

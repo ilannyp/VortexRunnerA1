@@ -10,5 +10,9 @@ public interface Collidable {
     float GetRadius();
 
     void OnHit(Collidable _other);
+
+    void SetPosX(float _newX);
+    void SetPosY(float _newY);
+
 }
 

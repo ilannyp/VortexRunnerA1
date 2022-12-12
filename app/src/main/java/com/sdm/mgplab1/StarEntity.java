@@ -131,4 +131,14 @@ public class StarEntity implements EntityBase, Collidable{
         }
     }
 
+    @Override
+    public void SetPosX(float _newX) {
+
+    }
+
+    @Override
+    public void SetPosY(float _newY) {
+
+    }
+
 }
