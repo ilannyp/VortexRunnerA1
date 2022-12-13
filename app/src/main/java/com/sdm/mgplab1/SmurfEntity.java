@@ -21,6 +21,8 @@ public class SmurfEntity implements EntityBase , Collidable{
     public static int floor = 569;
     private boolean jump = false;
 
+   
+
 
     public boolean IsDone() {
         return isDone;
