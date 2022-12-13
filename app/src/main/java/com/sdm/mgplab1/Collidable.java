@@ -5,6 +5,10 @@ package com.sdm.mgplab1;
 public interface Collidable {
     String GetType();
 
+    // To stop rendering of entities (mainly player after death)
+    void SetStatus(boolean bStatus);
+    boolean GetStatus();
+
     float GetPosX();
     float GetPosY();
     float GetRadius();

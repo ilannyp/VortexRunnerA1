@@ -20,8 +20,7 @@ public class SmurfEntity implements EntityBase , Collidable{
     public static int JumpForce = 130;
     public static int floor = 569;
     private boolean jump = false;
-
-   
+   private boolean _bStatus = true;
 
 
     public boolean IsDone() {
@@ -67,12 +66,14 @@ public class SmurfEntity implements EntityBase , Collidable{
 
                 }
             }
+
         }
 
 
     }
     public void Render(Canvas _canvas) {
-        spritesheet.Render(_canvas, xPos,yPos);
+        if(_bStatus)
+            spritesheet.Render(_canvas, xPos,yPos);
     }
     public boolean IsInit() {
         return bmp != null;
@@ -99,6 +100,12 @@ public class SmurfEntity implements EntityBase , Collidable{
     public String GetType() {
         return "SmurfEntity";
     }
+
+    @Override
+    public void SetStatus(boolean bStatus) {_bStatus = bStatus;}
+
+    @Override
+    public boolean GetStatus(){return _bStatus;}
 
     @Override
     public float GetPosX() {

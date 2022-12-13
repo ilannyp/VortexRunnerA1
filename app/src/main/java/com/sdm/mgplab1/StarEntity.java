@@ -22,7 +22,7 @@ public class StarEntity implements EntityBase, Collidable{
     private float speed = 0;
     private boolean isDone = false;
     private boolean isInit = false;
-
+    private boolean _bStatus = true;
     int ScreenWidth, ScreenHeight;
 
     @Override
@@ -140,5 +140,11 @@ public class StarEntity implements EntityBase, Collidable{
     public void SetPosY(float _newY) {
 
     }
+
+    @Override
+    public void SetStatus(boolean bStatus) {_bStatus = bStatus;}
+
+    @Override
+    public boolean GetStatus(){return _bStatus;}
 
 }

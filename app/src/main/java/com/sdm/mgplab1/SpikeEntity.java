@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceView;
 
-public class SmurfEntityTest implements EntityBase , Collidable{
+public class SpikeEntity implements EntityBase , Collidable{
 
     private Bitmap bmp = null;
     private Sprite spritesheet=null;//using Sprite Class
@@ -28,11 +28,11 @@ public class SmurfEntityTest implements EntityBase , Collidable{
 
     //@Override
     public void Init(SurfaceView _view){
-        bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.walltile);
+        bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.spike);
 
         spritesheet = new Sprite(bmp, 1,1,1);
-        xPos = _view.getWidth() / 2 + 50;
-        yPos = _view.getHeight() / 2 + 20;
+        xPos = _view.getWidth() / 2;
+        yPos = _view.getHeight() / 3;
 
         isInit = true;
 
@@ -75,8 +75,8 @@ public class SmurfEntityTest implements EntityBase , Collidable{
         return ENTITY_TYPE.ENT_SMURF;
     }
 
-    public static SmurfEntityTest Create(){
-        SmurfEntityTest result = new SmurfEntityTest();
+    public static SpikeEntity Create(){
+        SpikeEntity result = new SpikeEntity();
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_SMURF);
         return result;
     }
@@ -85,6 +85,12 @@ public class SmurfEntityTest implements EntityBase , Collidable{
     public String GetType() {
         return "SmurfEntityTest";
     }
+
+    @Override
+    public void SetStatus(boolean bStatus) {_bStatus = bStatus;}
+
+    @Override
+    public boolean GetStatus(){return _bStatus;}
 
     @Override
     public float GetPosX() {
@@ -104,9 +110,9 @@ public class SmurfEntityTest implements EntityBase , Collidable{
     @Override
     public void OnHit(Collidable _other) {
         //Log.v(TAG,"SmurfEnityTest colliding with"+ _other);
+
         _other.SetPosX(_other.GetPosX() - 5);
-
-
+        _other.SetStatus(false);
     }
 
     @Override
@@ -120,12 +126,6 @@ public class SmurfEntityTest implements EntityBase , Collidable{
         yPos = (int) _newY;
 
     }
-
-    @Override
-    public void SetStatus(boolean bStatus) {_bStatus = bStatus;}
-
-    @Override
-    public boolean GetStatus(){return _bStatus;}
 
     public float AddForceTowardsLeft(int amount){
         xPos -= amount;
