@@ -20,8 +20,18 @@ public class SmurfEntity implements EntityBase , Collidable{
     public static int JumpForce = 130;
     public static int floor = 569;
     private boolean jump = false;
+<<<<<<< Updated upstream
    private boolean _bStatus = true;
 
+=======
+
+    int touchX;
+    int touchY;
+    int storeTouchX;
+    int storeTouchY;
+    boolean StoreFirstTouched = false;
+    boolean bSwipeUp = false;
+>>>>>>> Stashed changes
 
     public boolean IsDone() {
         return isDone;
@@ -50,11 +60,14 @@ public class SmurfEntity implements EntityBase , Collidable{
         CheckGround();
         CheckJump(_dt);
 
+        CheckSwiped();
+
+
 //        //addon codes provide on slides from week 6 -- Slide no.7
         if(TouchManager.Instance.HasTouch()){
             //Check collision here
             float imgRad = spritesheet.GetWidth() * .5f;
-            if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(),TouchManager.Instance.GetPosY(),0.0f,xPos,yPos,imgRad)){
+            //if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(),TouchManager.Instance.GetPosY(),0.0f,xPos,yPos,imgRad)){
                 //Collided
                 hasTouched = true;
                 //Log.v(TAG,"Touch SmurfEntity");
@@ -65,8 +78,12 @@ public class SmurfEntity implements EntityBase , Collidable{
                     jump = true;
 
                 }
+<<<<<<< Updated upstream
             }
 
+=======
+            //}
+>>>>>>> Stashed changes
         }
 
 
@@ -178,6 +195,42 @@ public class SmurfEntity implements EntityBase , Collidable{
                     jump = false;
                 }
            // }
+        }
+    }
+    public void CheckSwiped(){
+        if(TouchManager.Instance.HasTouch()){
+
+            if(!StoreFirstTouched)
+            {
+                StoreFirstTouched = true;
+                storeTouchX = TouchManager.Instance.GetPosX();
+                storeTouchY = TouchManager.Instance.GetPosY();
+            }
+            touchX = TouchManager.Instance.GetPosX();
+            touchY = TouchManager.Instance.GetPosY();
+
+
+        }
+
+        if(TouchManager.Instance.IsUp())
+        {
+            if(storeTouchY > touchY && StoreFirstTouched)
+            {
+                bSwipeUp = true;
+                Log.v(TAG, "Store Y" + storeTouchY);
+                Log.v(TAG, "Y" + touchY);
+            }
+            StoreFirstTouched = false;
+
+
+
+
+
+        }
+
+        if (bSwipeUp)
+        {
+            //Log.v(TAG, "SWIPED");
         }
     }
 

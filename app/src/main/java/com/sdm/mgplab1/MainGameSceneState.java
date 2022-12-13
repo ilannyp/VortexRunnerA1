@@ -1,13 +1,15 @@
 package com.sdm.mgplab1;
 
 import android.graphics.Canvas;
+import android.text.method.Touch;
+import android.util.Log;
 import android.view.SurfaceView;
 
 // Created by TanSiewLan2021
 
 public class MainGameSceneState implements StateBase {
     private float timer = 0.0f;
-
+    protected static final String TAG = null;
     @Override
     public String GetName() {
         return "MainGame";
@@ -23,6 +25,7 @@ public class MainGameSceneState implements StateBase {
         SmurfEntityTest.Create();
         SpikeEntity.Create();
         PauseButtonEntity.Create();
+        PlayerEntity.Create();
 
     }
 
@@ -42,6 +45,7 @@ public class MainGameSceneState implements StateBase {
     public void Update(float _dt) {
 
         EntityManager.Instance.Update(_dt);
+
 
 //        if (TouchManager.Instance.IsDown()) {
 //

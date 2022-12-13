@@ -1,5 +1,7 @@
 package com.sdm.mgplab1;
 
+import android.text.method.Touch;
+import android.util.Log;
 import android.view.MotionEvent;
 
 // Created by TanSiewLan2021
@@ -8,7 +10,7 @@ import android.view.MotionEvent;
 
 public class TouchManager {
     public final static TouchManager Instance = new TouchManager();
-
+    protected static final String TAG = null;
     private TouchManager(){
 
     }
@@ -16,10 +18,12 @@ public class TouchManager {
     public enum TouchState{
         NONE,
         DOWN,
+        SWIPEUP,
         MOVE
     }
 
     private int posX, posY;
+    private int StoreX, StoreY;
     private TouchState status = TouchState.NONE; //Set to default as NONE
 
     public boolean HasTouch(){  // Check for a touch status on screen
@@ -29,6 +33,16 @@ public class TouchManager {
     public boolean IsDown(){
         return status == TouchState.DOWN;
     }
+
+    public boolean IsUp(){
+        return status == TouchState.NONE;
+    }
+
+
+    public boolean IsSwipedUp(){
+        return status == TouchState.SWIPEUP;
+    }
+
 
     public int GetPosX(){
         return posX;
@@ -42,9 +56,13 @@ public class TouchManager {
         posX = _posX;
         posY = _posY;
 
+
+
         switch (_motionEventStatus){
             case MotionEvent.ACTION_DOWN:
                 status = TouchState.DOWN;
+                StoreX = _posX;
+                StoreY = _posY;
                 break;
 
             case MotionEvent.ACTION_MOVE:
@@ -55,6 +73,8 @@ public class TouchManager {
                 status = TouchState.NONE;
                 break;
         }
+
+
     }
 }
 
