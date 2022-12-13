@@ -17,6 +17,7 @@ public class MainGameSceneState implements StateBase {
     public void OnEnter(SurfaceView _view)
     {
         RenderBackground.Create();
+        Floor.Create();
         // Example to include another Renderview for Pause Button
         SmurfEntity.Create(); // For week 7
         SmurfEntityTest.Create();
@@ -34,8 +35,6 @@ public class MainGameSceneState implements StateBase {
     public void Render(Canvas _canvas)
     {
         EntityManager.Instance.Render(_canvas);
-
-
     }
 
     @Override

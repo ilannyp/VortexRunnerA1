@@ -27,11 +27,11 @@ public class SmurfEntityTest implements EntityBase , Collidable{
 
     //@Override
     public void Init(SurfaceView _view){
-        bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.smurf_sprite);
+        bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.walltile);
 
-        spritesheet = new Sprite(bmp, 4,4,16);
+        spritesheet = new Sprite(bmp, 1,1,1);
         xPos = _view.getWidth() / 2 + 50;
-        yPos = _view.getHeight() / 2;
+        yPos = _view.getHeight() / 2 + 20;
 
         isInit = true;
 

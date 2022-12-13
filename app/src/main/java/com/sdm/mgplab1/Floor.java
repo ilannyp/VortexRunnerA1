@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
-public class RenderBackground implements EntityBase {
+public class Floor implements EntityBase {
     private Bitmap bmp = null;
     private boolean isDone = false;
     private float xPos = 0, yPos = 0;
@@ -28,7 +28,7 @@ public class RenderBackground implements EntityBase {
 
     public void Init(SurfaceView _view) {   // indicate what image to use
         //load the image
-        bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.gamescene);
+        bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.floorbg);
 
         // Get Screensize
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
@@ -36,14 +36,13 @@ public class RenderBackground implements EntityBase {
         ScreenHeight = metrics.heightPixels;
 
         scaledbmp = Bitmap.createScaledBitmap(bmp,ScreenWidth,ScreenHeight,true);
-
     }
 
 
     public void Update(float _dt) {
         if (GameSystem.Instance.GetIsPaused())
             return;
-        xPos -=_dt * 500; //500 is just a variable. Can be edited. To deal with speed, how fast the screen scrolls.
+        xPos -=_dt * 600; //500 is just a variable. Can be edited. To deal with speed, how fast the screen scrolls.
         if (xPos < - ScreenWidth){
             xPos = 0;
         }
@@ -63,7 +62,7 @@ public class RenderBackground implements EntityBase {
 
 
     public int GetRenderLayer() {
-        return LayerConstants.BACKGROUND_LAYER;
+        return LayerConstants.FLOORCEILING_LAYER;
     }
 
     public void SetRenderLayer(int _newLayer) {
@@ -74,8 +73,8 @@ public class RenderBackground implements EntityBase {
         return ENTITY_TYPE.ENT_DEFAULT;
     }
 
-    public static RenderBackground Create() {
-        RenderBackground result = new RenderBackground();
+    public static Floor Create() {
+        Floor result = new Floor();
         EntityManager.Instance.AddEntity(result,ENTITY_TYPE.ENT_DEFAULT);
         return result;
     }
