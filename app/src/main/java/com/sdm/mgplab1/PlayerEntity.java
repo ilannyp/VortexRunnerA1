@@ -25,8 +25,9 @@ public class PlayerEntity implements EntityBase , Collidable{
 
     private double xPos = 0, yPos = 0;
     private double velx, vely;
-    public double Gravity = 12.8;
-    public double JumpVel = 100;
+    public double Gravity = 11.8;
+    public double JumpVel = 65;
+    public boolean Falling = false;
 
     public boolean IsDone() {
         return isDone;
@@ -40,9 +41,11 @@ public class PlayerEntity implements EntityBase , Collidable{
     //@Override
     public void Init(SurfaceView _view){
         bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.playerbox);
+
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
+
         sbmp = Bitmap.createScaledBitmap(bmp, (int)(ScreenWidth)/12,
                 (int) (ScreenHeight)/7,true);
         spritesheet = new Sprite(bmp, 1,1,16);    //If want to animated our player
@@ -58,9 +61,11 @@ public class PlayerEntity implements EntityBase , Collidable{
     }
     public void Update(float _dt) {
         xPos+=velx;
+        yPos+=vely;
+
         if(vely < Gravity)
         {
-            vely += 15.8;
+            vely += 11.8;
         }
 
         if(yPos+vely < 633)
@@ -78,20 +83,11 @@ public class PlayerEntity implements EntityBase , Collidable{
        if(TouchManager.Instance.HasTouch()){
             float imgRad = spritesheet.GetWidth() * .5f;
              if (Collision.SphereToSphere((float) TouchManager.Instance.GetPosX(), (float) TouchManager.Instance.GetPosY(),0.0f, (float) xPos, (float) yPos,imgRad)){
-                //Collided
-            //hasTouched = true;
-//            //Log.v(TAG,"Touch SmurfEntity");
-             //xPos = TouchManager.Instance.GetPosX();
-             //yPos = TouchManager.Instance.GetPosY();
+
                  if (vely == 0)
                  {
                      vely = -JumpVel;
                  }
-//            if(yPos == floor)
-//            {
-//                jump = true;
-//
-//            }
             }
         }
 
@@ -99,6 +95,7 @@ public class PlayerEntity implements EntityBase , Collidable{
 
     }
     public void Render(Canvas _canvas) {
+
         _canvas.drawBitmap(sbmp, (int) (xPos - sbmp.getWidth()*0.5f), (int) (yPos - sbmp.getHeight()*0.5f), null);
         //spritesheet.Render(_canvas, (int)xPos,(int)yPos); //If want to animate our player
     }
