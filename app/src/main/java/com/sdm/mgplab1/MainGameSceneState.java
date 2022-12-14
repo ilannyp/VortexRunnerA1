@@ -98,13 +98,13 @@ public class MainGameSceneState implements StateBase {
     public void LevelHC(int _dt)
     {
         timer += _dt;
-        if(timer < 700)
-        {
-            if(SpawnNewEntityTimer < MaxSpawnEntityTimer)
-            {
-                InvertedSpikeEntity.Create();
-            }
-        }
+//        if(timer < 700)
+//        {
+//            if(SpawnNewEntityTimer < MaxSpawnEntityTimer)
+//            {
+//                InvertedSpikeEntity.Create();
+//            }
+//        }
         if(timer == 60)
         {
             SmurfEntityTest.Create();
