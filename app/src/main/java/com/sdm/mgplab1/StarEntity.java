@@ -132,6 +132,11 @@ public class StarEntity implements EntityBase, Collidable{
     }
 
     @Override
+    public void OnBoxHit(Collidable _other) {
+
+    }
+
+    @Override
     public void SetPosX(float _newX) {
 
     }
@@ -139,6 +144,16 @@ public class StarEntity implements EntityBase, Collidable{
     @Override
     public void SetPosY(float _newY) {
 
+    }
+
+    @Override
+    public int GetHeight() {
+        return 0;
+    }
+
+    @Override
+    public int GetWidth() {
+        return 0;
     }
 
     @Override

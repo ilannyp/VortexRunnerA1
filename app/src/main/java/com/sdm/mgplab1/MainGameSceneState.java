@@ -31,11 +31,13 @@ public class MainGameSceneState implements StateBase {
         RenderBackground.Create();
         Floor.Create();
         // Example to include another Renderview for Pause Button
-        Player = SmurfEntity.Create();// For week 7
+        //Player = SmurfEntity.Create();// For week 7
+        //SmurfEntity.Create(); // For week 7
         SmurfEntityTest.Create();
         Spike = SpikeEntity.Create();
         PauseButtonEntity.Create();
         PlayerEntity.Create();
+        SwapGravButtonEntity.Create();
 
 
 
@@ -69,11 +71,7 @@ public class MainGameSceneState implements StateBase {
             SpikeTimer = 0;
         }
 
-//        if (TouchManager.Instance.IsDown()) {
-//
-//            //Example of touch on screen in the main game to trigger back to Main menu
-//            StateManager.Instance.ChangeState("Mainmenu");
-//        }
+
     }
 }
 

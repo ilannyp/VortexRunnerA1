@@ -141,6 +141,11 @@ public class SmurfEntity implements EntityBase , Collidable{
     }
 
     @Override
+    public void OnBoxHit(Collidable _other) {
+
+    }
+
+    @Override
     public void SetPosX(float _newX) {
         xPos = (int) _newX;
     }
@@ -148,6 +153,16 @@ public class SmurfEntity implements EntityBase , Collidable{
     @Override
     public void SetPosY(float _newY) {
         yPos = (int) _newY;
+    }
+
+    @Override
+    public int GetHeight() {
+        return 0;
+    }
+
+    @Override
+    public int GetWidth() {
+        return 0;
     }
 
     public void StorePositionForRollback(){

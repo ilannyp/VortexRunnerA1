@@ -69,10 +69,18 @@ public class EntityManager {
                     {
                         Collidable second = (Collidable) otherEntity;
 
+                        PlayerEntity.Falling = true;
                         if (Collision.SphereToSphere(first.GetPosX(), first.GetPosY(), first.GetRadius(), second.GetPosX(), second.GetPosY(), second.GetRadius()))
                         {
                             first.OnHit(second);
                             second.OnHit(first);
+                        }
+                        PlayerEntity.Falling = true;
+
+                        if(Collision.AABB(first.GetPosX(), first.GetPosY(),first.GetWidth(), first.GetHeight(), second.GetPosX(), second.GetPosY(), second.GetWidth(), second.GetHeight()))
+                        {
+                            first.OnBoxHit(second);
+                            second.OnBoxHit(first);
                         }
                     }
                 }

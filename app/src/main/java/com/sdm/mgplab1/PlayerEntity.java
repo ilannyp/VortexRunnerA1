@@ -18,16 +18,17 @@ public class PlayerEntity implements EntityBase , Collidable{
     private boolean isDone = false;
     private boolean isInit = false;
     protected static final String TAG = null;
-
+    protected static boolean swapGrav = false;
 
 
 
 
     private double xPos = 0, yPos = 0;
-    private double velx, vely;
+    private static double velx;
+    private static double vely;
     public double Gravity = 11.8;
-    public double JumpVel = 65;
-    public boolean Falling = false;
+    public double JumpVel = 45;
+    public static boolean Falling = true;
 
     public boolean IsDone() {
         return isDone;
@@ -63,19 +64,60 @@ public class PlayerEntity implements EntityBase , Collidable{
         xPos+=velx;
         yPos+=vely;
 
-        if(vely < Gravity)
+        //gravity
+        //if swapGrav true -> vel -
+        //if swapGrav false -> vel +
+        if(!swapGrav)
         {
-            vely += 11.8;
-        }
-
-        if(yPos+vely < 633)
-        {
-            yPos+=vely;
+            if(vely < Gravity && Falling)
+            {
+                vely += 9.8;
+            }else if(!Falling && vely > 0)
+            {
+                vely = 0;
+            }
         }
         else
         {
-            vely = 0;
+            if(vely > -Gravity && Falling)
+            {
+                vely -= 9.8;
+            }else if(!Falling)
+            {
+                vely = 0;
+            }
         }
+
+        //if swapGrav true -> (yPos+vely > 50(for now))
+        //if swapGrav false ->(yPos+vely < 633)
+
+            if(!swapGrav)
+            {
+                if(yPos+vely < 633)
+                {
+                    yPos+=vely;
+                }
+                else
+                {
+                    vely = 0;
+                }
+            }
+            else
+            {
+                if(yPos+vely > 100)
+                {
+                    yPos+= vely;
+                }
+                else
+                {
+                    vely = 0;
+                }
+            }
+
+
+
+
+
 
 
 
@@ -84,16 +126,29 @@ public class PlayerEntity implements EntityBase , Collidable{
             float imgRad = spritesheet.GetWidth() * .5f;
              if (Collision.SphereToSphere((float) TouchManager.Instance.GetPosX(), (float) TouchManager.Instance.GetPosY(),0.0f, (float) xPos, (float) yPos,imgRad)){
 
+
                  if (vely == 0)
                  {
-                     vely = -JumpVel;
+                     //if swapGrav false -> vely = -JumpVel
+                     //if swapGrav true -> vely = JumpVel
+                     if(!swapGrav)
+                     {
+                         vely = -JumpVel;
+                     }
+                     else
+                     {
+                         vely = JumpVel;
+                         Log.v(TAG, "yPos + vely" + (yPos + vely));
+
+                     }
                  }
             }
         }
 
 
-
     }
+
+
     public void Render(Canvas _canvas) {
 
         _canvas.drawBitmap(sbmp, (int) (xPos - sbmp.getWidth()*0.5f), (int) (yPos - sbmp.getHeight()*0.5f), null);
@@ -153,8 +208,25 @@ public class PlayerEntity implements EntityBase , Collidable{
 
     @Override
     public void OnHit(Collidable _other) {
+//        Falling  = false;
+//        if(vely > 0){
+//            yPos = (_other.GetPosY()- this.GetHeight());
+//        }
 
+    }
 
+    @Override
+    public void OnBoxHit(Collidable _other) {
+        Log.v(TAG,"HIT");
+        Falling  = false;
+        if(vely > 0){//change
+            yPos = (_other.GetPosY()- (this.GetHeight() * 1.5));
+        }
+//        Log.v(TAG, "UH");
+//        Falling  = false;
+//        if(vely > 0){
+//            yPos = (_other.GetPosY()- this.GetHeight());
+    //    }
     }
 
     @Override
@@ -167,6 +239,19 @@ public class PlayerEntity implements EntityBase , Collidable{
         yPos = (int) _newY;
     }
 
+    @Override
+    public int GetHeight() {
+        return sbmp.getHeight();
+    }
+
+    @Override
+    public int GetWidth() {
+        return sbmp.getWidth();
+    }
+
+    public static double GetVelY(){
+        return vely;
+    }
 
 
 

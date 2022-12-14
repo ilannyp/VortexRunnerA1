@@ -129,6 +129,11 @@ public class SpikeEntity implements EntityBase , Collidable{
     }
 
     @Override
+    public void OnBoxHit(Collidable _other) {
+
+    }
+
+    @Override
     public void SetPosX(float _newX) {
         xPos = (int) _newX;
 
@@ -138,6 +143,16 @@ public class SpikeEntity implements EntityBase , Collidable{
     public void SetPosY(float _newY) {
         yPos = (int) _newY;
 
+    }
+
+    @Override
+    public int GetHeight() {
+        return 0;
+    }
+
+    @Override
+    public int GetWidth() {
+        return 0;
     }
 
     public float AddForceTowardsLeft(int amount){
