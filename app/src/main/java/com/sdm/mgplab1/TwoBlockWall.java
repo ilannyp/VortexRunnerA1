@@ -49,8 +49,8 @@ public class TwoBlockWall implements EntityBase , Collidable{
                 //Collided
                 hasTouched = true;
 
-                xPos = TouchManager.Instance.GetPosX();
-                yPos = TouchManager.Instance.GetPosY();
+                //xPos = TouchManager.Instance.GetPosX();
+                //yPos = TouchManager.Instance.GetPosY();
 
             }
         }
@@ -112,7 +112,7 @@ public class TwoBlockWall implements EntityBase , Collidable{
     public void OnHit(Collidable _other) {
         //Log.v(TAG,"SmurfEnityTest colliding with"+ _other);
         if(_other.GetType() == "PlayerEntity"){
-            _other.SetPosX(_other.GetPosX() - 15);
+            _other.SetPosX(_other.GetPosX() - 20);
         }
     }
 

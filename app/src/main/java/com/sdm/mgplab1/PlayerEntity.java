@@ -125,18 +125,6 @@ public class PlayerEntity implements EntityBase , Collidable{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     private void CheckJump() {
@@ -235,7 +223,7 @@ public class PlayerEntity implements EntityBase , Collidable{
         if(vely > 0)
         {
             vely = 0;
-            yPos = (_other.GetPosY()- (this.GetHeight() * 1.5));
+            yPos = (_other.GetPosY()- (this.GetHeight() + 1));
         }
         if(vely < 0 ){
             Falling = true;
