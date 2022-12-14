@@ -52,7 +52,7 @@ public class PlayerEntity implements EntityBase , Collidable{
                 (int) (ScreenHeight)/7,true);
         spritesheet = new Sprite(bmp, 1,1,16);    //If want to animated our player
 
-
+        JumpVel = ScreenHeight * 0.075  ;
 
 
         xPos = ScreenWidth / 7;
