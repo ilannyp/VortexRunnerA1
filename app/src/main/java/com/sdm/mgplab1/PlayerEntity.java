@@ -129,6 +129,16 @@ public class PlayerEntity implements EntityBase , Collidable{
     }
 
     @Override
+    public void SetStatus(boolean bStatus) {
+
+    }
+
+    @Override
+    public boolean GetStatus() {
+        return false;
+    }
+
+    @Override
     public float GetPosX() {
         return (float)xPos;
     }
