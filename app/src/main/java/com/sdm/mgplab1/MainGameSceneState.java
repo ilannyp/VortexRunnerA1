@@ -137,7 +137,7 @@ public class MainGameSceneState implements StateBase {
 
 
         //TODO: To create until timer reaches 2220
-        System.out.println(timer);
+        //System.out.println(timer);
     }
 
 
@@ -157,6 +157,8 @@ public class MainGameSceneState implements StateBase {
         PauseButtonEntity.Create();
         PlayerEntity.Create();
         SwapGravButtonEntity.Create();
+
+
         //TwoBlockWall.CreateNew(200,600);
 
 

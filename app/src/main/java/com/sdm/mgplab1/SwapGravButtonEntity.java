@@ -16,6 +16,7 @@ public class SwapGravButtonEntity implements EntityBase {
     int ScreenWidth, ScreenHeight;
 
     private boolean Paused = false;
+    private boolean Swiped = false;
     private float buttonDelay = 0;
 
     private boolean isDone = false;
@@ -24,6 +25,7 @@ public class SwapGravButtonEntity implements EntityBase {
     private boolean isInit = false;
 
     protected static final String TAG = null;
+
     public boolean IsDone() {
         return isDone;
     }
@@ -34,9 +36,9 @@ public class SwapGravButtonEntity implements EntityBase {
 
     public void Init(SurfaceView _view) {
         bmp = BitmapFactory.decodeResource(_view.getResources(),
-                R.drawable.pause);
+                R.drawable.invertbutton);
         bmp1 = BitmapFactory.decodeResource(_view.getResources(),
-                R.drawable.pause1);
+                R.drawable.invertbutton1);
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
@@ -51,7 +53,6 @@ public class SwapGravButtonEntity implements EntityBase {
 
         xPos = ScreenWidth - 150;
         yPos = ScreenHeight - 60;
-
         isInit = true;
     }
 
@@ -68,7 +69,9 @@ public class SwapGravButtonEntity implements EntityBase {
 
                     if(PlayerEntity.GetVelY() == 0)
                     {
+                        Swiped = !Swiped;
                         PlayerEntity.swapGrav = !PlayerEntity.swapGrav;
+
                     }
 
                 }
@@ -81,7 +84,7 @@ public class SwapGravButtonEntity implements EntityBase {
     }
 
     public void Render(Canvas _canvas) {
-        if(!Paused)
+        if(!Swiped)
         {
             _canvas.drawBitmap(sbmp, xPos - sbmp.getWidth()*0.5f, yPos - sbmp.getHeight()*0.5f, null);
         }

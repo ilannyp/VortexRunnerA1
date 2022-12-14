@@ -27,7 +27,7 @@ public class PlayerEntity implements EntityBase , Collidable{
     private static double velx;
     private static double vely;
     public double Gravity = 11.8;
-    public double JumpVel = 45;
+    public static double JumpVel = 45;
     public static boolean Falling = false;
     public boolean Jumpable = false;
 
@@ -262,7 +262,9 @@ public class PlayerEntity implements EntityBase , Collidable{
     public static double GetVelY(){
         return vely;
     }
-
+    public static void SetVelY(double _vely){
+        vely = _vely;
+    }
 
 
 }
