@@ -78,7 +78,7 @@ public class SmurfEntity implements EntityBase , Collidable{
             }
 
             //}
-        }
+        //}
 
 
     }
