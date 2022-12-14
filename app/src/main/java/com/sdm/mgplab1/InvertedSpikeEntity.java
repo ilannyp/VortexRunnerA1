@@ -1,12 +1,11 @@
 package com.sdm.mgplab1;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceView;
 
-public class SpikeEntity implements EntityBase , Collidable{
+public class InvertedSpikeEntity implements EntityBase , Collidable{
 
     private Bitmap bmp = null;
     private Sprite spritesheet=null;//using Sprite Class
@@ -28,7 +27,7 @@ public class SpikeEntity implements EntityBase , Collidable{
 
     //@Override
     public void Init(SurfaceView _view){
-        bmp = ResourceManager.Instance.GetBitmap(R.drawable.spike);
+        bmp = ResourceManager.Instance.GetBitmap(R.drawable.invertedspike);
 
         spritesheet = new Sprite(bmp, 1,1,1);
         xPos = _view.getWidth() ;
@@ -65,7 +64,7 @@ public class SpikeEntity implements EntityBase , Collidable{
         if(_bStatus)
         {
             //System.out.println(xPos);
-            Bitmap bmp = ResourceManager.Instance.GetBitmap(R.drawable.spike);
+            Bitmap bmp = ResourceManager.Instance.GetBitmap(R.drawable.invertedspike);
             spritesheet = new Sprite(bmp, 1,1,1);
             spritesheet.Render(_canvas, xPos,yPos);
         }
@@ -87,15 +86,15 @@ public class SpikeEntity implements EntityBase , Collidable{
         return ENTITY_TYPE.ENT_SMURF;
     }
 
-    public static SpikeEntity Create(){
+    public static InvertedSpikeEntity Create(){
 
-        SpikeEntity result = new SpikeEntity();
+        InvertedSpikeEntity result = new InvertedSpikeEntity();
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_SMURF);
         return result;
     }
     @Override
     public String GetType() {
-        return "SpikeEntity";
+        return "InvertedSpikeEntity";
     }
 
     @Override

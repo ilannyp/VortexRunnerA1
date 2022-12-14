@@ -95,9 +95,9 @@ public class PlayerEntity implements EntityBase , Collidable{
         //gravity
         //if swapGrav true -> vel -
         //if swapGrav false -> vel +
-        Log.v(TAG,"isFalling: "+Falling);
-        Log.v(TAG,"isGravSwap: "+swapGrav);
-        Log.v(TAG,"vely: "+vely);
+        //Log.v(TAG,"isFalling: "+Falling);
+        //Log.v(TAG,"isGravSwap: "+swapGrav);
+        //Log.v(TAG,"vely: "+vely);
 
         if(!swapGrav)
         {

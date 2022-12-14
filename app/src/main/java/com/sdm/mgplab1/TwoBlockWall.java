@@ -1,12 +1,10 @@
 package com.sdm.mgplab1;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceView;
-
-public class SpikeEntity implements EntityBase , Collidable{
+public class TwoBlockWall implements EntityBase , Collidable{
 
     private Bitmap bmp = null;
     private Sprite spritesheet=null;//using Sprite Class
@@ -15,7 +13,7 @@ public class SpikeEntity implements EntityBase , Collidable{
     private int xPos = 0, yPos = 0;
     private boolean hasTouched = false;
     protected static final String TAG = null;
-    private boolean _bStatus = true;    // Bool for rendering
+    private boolean _bStatus = true;
 
     public boolean IsDone() {
         return isDone;
@@ -28,11 +26,11 @@ public class SpikeEntity implements EntityBase , Collidable{
 
     //@Override
     public void Init(SurfaceView _view){
-        bmp = ResourceManager.Instance.GetBitmap(R.drawable.spike);
+        bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.twoblockwall);
 
         spritesheet = new Sprite(bmp, 1,1,1);
         xPos = _view.getWidth() ;
-        yPos = _view.getHeight() * 8/9;
+        yPos = _view.getHeight() * 7/9;
 
         isInit = true;
 
@@ -47,7 +45,7 @@ public class SpikeEntity implements EntityBase , Collidable{
         if(TouchManager.Instance.HasTouch()){
             //Check collision here
             float imgRad = spritesheet.GetWidth() * .5f;
-            if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(),TouchManager.Instance.GetPosY(),0.0f,xPos,yPos,imgRad)) {
+            if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(),TouchManager.Instance.GetPosY(),0.0f,xPos,yPos,imgRad)){
                 //Collided
                 hasTouched = true;
 
@@ -56,19 +54,11 @@ public class SpikeEntity implements EntityBase , Collidable{
 
             }
         }
-        if(xPos < 0)
-        {
-            _bStatus = false;
-        }
     }
     public void Render(Canvas _canvas) {
-        if(_bStatus)
-        {
-            //System.out.println(xPos);
-            Bitmap bmp = ResourceManager.Instance.GetBitmap(R.drawable.spike);
-            spritesheet = new Sprite(bmp, 1,1,1);
-            spritesheet.Render(_canvas, xPos,yPos);
-        }
+        Bitmap bmp = ResourceManager.Instance.GetBitmap(R.drawable.twoblockwall);
+        spritesheet = new Sprite(bmp, 1,1,1);
+        spritesheet.Render(_canvas, xPos,yPos);
     }
     public boolean IsInit() {
         return bmp != null;
@@ -81,28 +71,27 @@ public class SpikeEntity implements EntityBase , Collidable{
     public void SetRenderLayer(int _newLayer) {
         return;
     }
-
-
-    public ENTITY_TYPE GetEntityType() {
-        return ENTITY_TYPE.ENT_SMURF;
+    public EntityBase.ENTITY_TYPE GetEntityType() {
+        return EntityBase.ENTITY_TYPE.ENT_SMURF;
     }
 
-    public static SpikeEntity Create(){
-
-        SpikeEntity result = new SpikeEntity();
-        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_SMURF);
+    public static TwoBlockWall Create(){
+        TwoBlockWall result = new TwoBlockWall();
+        EntityManager.Instance.AddEntity(result, EntityBase.ENTITY_TYPE.ENT_SMURF);
+        return result;
+    }
+    public static TwoBlockWall CreateNew(int xPos, int yPos)
+    {
+        TwoBlockWall result = new TwoBlockWall();
+        result.SetPosX(xPos);
+        result.SetPosY(yPos);
+        EntityManager.Instance.AddEntity(result, EntityBase.ENTITY_TYPE.ENT_SMURF);
         return result;
     }
     @Override
     public String GetType() {
-        return "SpikeEntity";
+        return "Wall";
     }
-
-    @Override
-    public void SetStatus(boolean bStatus) {_bStatus = bStatus;}
-
-    @Override
-    public boolean GetStatus(){return _bStatus;}
 
     @Override
     public float GetPosX() {
@@ -122,19 +111,14 @@ public class SpikeEntity implements EntityBase , Collidable{
     @Override
     public void OnHit(Collidable _other) {
         //Log.v(TAG,"SmurfEnityTest colliding with"+ _other);
-        if(_other.GetType() == "PlayerEntity")
-        {
-            //if(_other.GetPosX())
+        if(_other.GetType() == "PlayerEntity"){
+            _other.SetPosX(_other.GetPosX() - 15);
         }
-        //_other.SetPosX(_other.GetPosX() - 5);
-        // TODO: Change "SmurfEntity" to "PlayerEntity"
-        if(_other.GetType() == "SmurfEntity")
-            _other.SetStatus(false);
     }
 
     @Override
     public void OnBoxHit(Collidable _other) {
-
+        //Log.v(TAG, "OnBoxHit ");  //not workin well
     }
 
     @Override
@@ -151,16 +135,24 @@ public class SpikeEntity implements EntityBase , Collidable{
 
     @Override
     public int GetHeight() {
-        return 0;
+        return spritesheet.GetHeight();
     }
 
     @Override
     public int GetWidth() {
-        return 0;
+        return spritesheet.GetWidth();
     }
+
+    @Override
+    public void SetStatus(boolean bStatus) {_bStatus = bStatus;}
+
+    @Override
+    public boolean GetStatus(){return _bStatus;}
 
     public float AddForceTowardsLeft(int amount){
         xPos -= amount;
         return amount;
     }
 }
+
+

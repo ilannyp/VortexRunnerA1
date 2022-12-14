@@ -31,8 +31,8 @@ public class SmurfEntityTest implements EntityBase , Collidable{
         bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.walltile);
 
         spritesheet = new Sprite(bmp, 1,1,1);
-        xPos = _view.getWidth() / 2 + 50;
-        yPos = _view.getHeight() / 2 + 20;
+        xPos = _view.getWidth() ;
+        yPos = _view.getHeight() * 8/9;
 
         isInit = true;
 
@@ -40,24 +40,26 @@ public class SmurfEntityTest implements EntityBase , Collidable{
     public void Update(float _dt) {
 
         spritesheet.Update(_dt);
-        AddForceTowardsLeft(5);
+        AddForceTowardsLeft(20);
         //Log.v(TAG,"x: " + xPos + " y " + yPos);
 
 //        //addon codes provide on slides from week 6 -- Slide no.7
         if(TouchManager.Instance.HasTouch()){
             //Check collision here
             float imgRad = spritesheet.GetWidth() * .5f;
-            if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(),TouchManager.Instance.GetPosY(),0.0f,xPos,yPos,imgRad)){
-                //Collided
-                hasTouched = true;
-
-                xPos = TouchManager.Instance.GetPosX();
-                yPos = TouchManager.Instance.GetPosY();
-
-            }
+//            if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(),TouchManager.Instance.GetPosY(),0.0f,xPos,yPos,imgRad)){
+//                //Collided
+//                hasTouched = true;
+//
+//                xPos = TouchManager.Instance.GetPosX();
+//                yPos = TouchManager.Instance.GetPosY();
+//
+//            }
         }
     }
     public void Render(Canvas _canvas) {
+        Bitmap bmp = ResourceManager.Instance.GetBitmap(R.drawable.walltile);
+        spritesheet = new Sprite(bmp, 1,1,1);
         spritesheet.Render(_canvas, xPos,yPos);
     }
     public boolean IsInit() {
@@ -104,8 +106,10 @@ public class SmurfEntityTest implements EntityBase , Collidable{
     @Override
     public void OnHit(Collidable _other) {
         //Log.v(TAG,"SmurfEnityTest colliding with"+ _other);
-        _other.SetPosX(_other.GetPosX() - 5);
-
+        if(_other.GetType()== "PlayerEntity")
+        {
+            _other.SetPosX(_other.GetPosX() - 5);
+        }
     }
 
     @Override
