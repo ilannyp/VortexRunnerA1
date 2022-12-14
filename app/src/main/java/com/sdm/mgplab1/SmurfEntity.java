@@ -20,10 +20,8 @@ public class SmurfEntity implements EntityBase , Collidable{
     public static int JumpForce = 130;
     public static int floor = 569;
     private boolean jump = false;
-<<<<<<< Updated upstream
    private boolean _bStatus = true;
 
-=======
 
     int touchX;
     int touchY;
@@ -31,7 +29,6 @@ public class SmurfEntity implements EntityBase , Collidable{
     int storeTouchY;
     boolean StoreFirstTouched = false;
     boolean bSwipeUp = false;
->>>>>>> Stashed changes
 
     public boolean IsDone() {
         return isDone;
@@ -78,12 +75,9 @@ public class SmurfEntity implements EntityBase , Collidable{
                     jump = true;
 
                 }
-<<<<<<< Updated upstream
             }
 
-=======
             //}
->>>>>>> Stashed changes
         }
 
 
