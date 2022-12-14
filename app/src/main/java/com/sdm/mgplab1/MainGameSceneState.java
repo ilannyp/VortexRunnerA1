@@ -22,7 +22,7 @@ public class MainGameSceneState implements StateBase {
     // Timer for next entity to be spawned
     private float SpawnNewEntityTimer = 0.0f;
     // Max timer for next entity to be spawned
-    private float MaxSpawnEntityTimer = 0.3f;
+    private float MaxSpawnEntityTimer = 1.f;
 
 
     private boolean pattern1Start = true;
@@ -98,13 +98,14 @@ public class MainGameSceneState implements StateBase {
     public void LevelHC(int _dt)
     {
         timer += _dt;
-//        if(timer < 700)
-//        {
-//            if(SpawnNewEntityTimer < MaxSpawnEntityTimer)
-//            {
-//                InvertedSpikeEntity.Create();
-//            }
-//        }
+        if(timer < 700)
+        {
+            if(SpawnNewEntityTimer > MaxSpawnEntityTimer)
+            {
+                InvertedSpikeEntity.Create();
+                SpawnNewEntityTimer = 0;
+            }
+        }
         if(timer == 60)
         {
             SmurfEntityTest.Create();
@@ -177,24 +178,25 @@ public class MainGameSceneState implements StateBase {
     public void Update(float _dt) {
         //timer += _dt;
         WallTimer += _dt;
+        SpawnNewEntityTimer+= _dt;
         SpikeTimer+= _dt;
         SpeedUpTimer += _dt;
         SlowDownTimer += _dt;
         EntityManager.Instance.Update(_dt);
        // System.out.println(timer);
 
-        // To Do: If got time change from hardcode to using patterns
-        if(pattern1Start)
-        {
-            SpawnSpike(1);
-            if(SpawnNewEntityTimer >= MaxSpawnEntityTimer) {
-                // System.out.println("Wall Spawned");
-                SpawnWall(1, _dt);
-                SpawnNewEntityTimer = 0;
-                pattern1Start = false;
-            }
-
-        }
+        // ToDo: If got time change from hardcode to using patterns
+//        if(pattern1Start)
+//        {
+//            SpawnSpike(1);
+//            if(SpawnNewEntityTimer >= MaxSpawnEntityTimer) {
+//                // System.out.println("Wall Spawned");
+//                SpawnWall(1, _dt);
+//                SpawnNewEntityTimer = 0;
+//                pattern1Start = false;
+//            }
+//
+//        }
         LevelHC(1);
         //System.out.println(pattern1Start);
 //        if(WallTimer)

@@ -31,7 +31,7 @@ public class InvertedSpikeEntity implements EntityBase , Collidable{
 
         spritesheet = new Sprite(bmp, 1,1,1);
         xPos = _view.getWidth() ;
-        yPos = _view.getHeight() * 8/9;
+        yPos = _view.getHeight() / 8;
 
         isInit = true;
 
