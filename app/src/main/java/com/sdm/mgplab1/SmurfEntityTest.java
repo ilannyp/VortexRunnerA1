@@ -104,7 +104,7 @@ public class SmurfEntityTest implements EntityBase , Collidable{
     @Override
     public void OnHit(Collidable _other) {
         //Log.v(TAG,"SmurfEnityTest colliding with"+ _other);
-        //_other.SetPosX(_other.GetPosX() - 5);
+        _other.SetPosX(_other.GetPosX() - 5);
 
     }
 

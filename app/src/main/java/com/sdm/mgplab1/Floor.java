@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
-public class Floor implements EntityBase , Collidable{
+public class Floor implements EntityBase{
     private Bitmap bmp = null;
     private boolean isDone = false;
     private float xPos = 0, yPos = 0;
@@ -79,67 +79,5 @@ public class Floor implements EntityBase , Collidable{
         return result;
     }
 
-    @Override
-    public String GetType() {
-        return "Floor";
-    }
 
-    @Override
-    public void SetStatus(boolean bStatus) {
-
-    }
-
-    @Override
-    public boolean GetStatus() {
-        return false;
-    }
-
-    @Override
-    public float GetPosX() {
-        return (float)xPos;
-
-    }
-
-    @Override
-    public float GetPosY() {
-        return (float)yPos;
-
-    }
-
-    @Override
-    public float GetRadius() {
-        return 55.0f;
-    }
-
-    @Override
-    public void OnHit(Collidable _other) {
-
-    }
-
-    @Override
-    public void OnBoxHit(Collidable _other) {
-
-    }
-
-    @Override
-    public void SetPosX(float _newX) {
-        xPos = (int) _newX;
-
-    }
-
-    @Override
-    public void SetPosY(float _newY) {
-        yPos = (int) _newY;
-
-    }
-
-    @Override
-    public int GetHeight() {
-        return scaledbmp.getHeight();
-    }
-
-    @Override
-    public int GetWidth() {
-        return scaledbmp.getWidth();
-    }
 }

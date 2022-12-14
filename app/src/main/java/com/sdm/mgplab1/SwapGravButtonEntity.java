@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.SurfaceView;
 
 public class SwapGravButtonEntity implements EntityBase {
@@ -22,6 +23,7 @@ public class SwapGravButtonEntity implements EntityBase {
 
     private boolean isInit = false;
 
+    protected static final String TAG = null;
     public boolean IsDone() {
         return isDone;
     }
@@ -63,6 +65,7 @@ public class SwapGravButtonEntity implements EntityBase {
                 if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(),
                         TouchManager.Instance.GetPosY(), 0.0f, xPos, yPos, imgRadius)
                         && buttonDelay >= 0.25) {
+
                     if(PlayerEntity.GetVelY() == 0)
                     {
                         PlayerEntity.swapGrav = !PlayerEntity.swapGrav;

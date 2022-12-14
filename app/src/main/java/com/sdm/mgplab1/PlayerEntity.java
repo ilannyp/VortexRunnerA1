@@ -28,7 +28,8 @@ public class PlayerEntity implements EntityBase , Collidable{
     private static double vely;
     public double Gravity = 11.8;
     public double JumpVel = 45;
-    public static boolean Falling = true;
+    public static boolean Falling = false;
+    public boolean Jumpable = false;
 
     public boolean IsDone() {
         return isDone;
@@ -54,7 +55,7 @@ public class PlayerEntity implements EntityBase , Collidable{
 
 
 
-        xPos = 296;
+        xPos = ScreenWidth / 7;
         yPos = 296;
 
         isInit = true;
@@ -64,9 +65,40 @@ public class PlayerEntity implements EntityBase , Collidable{
         xPos+=velx;
         yPos+=vely;
 
+        CheckJump();
+
+        if(!swapGrav)
+        {
+            if(yPos+vely < ScreenHeight - (ScreenHeight * 0.1))
+            {
+                yPos+=vely;
+            }
+            else
+            {
+                Falling  = false;
+                vely = 0;
+            }
+        }
+        else
+        {
+            if(yPos+vely > ScreenHeight - ScreenHeight * 0.85)
+            {
+                yPos+= vely;
+            }
+            else
+            {
+                Falling  = false;
+                vely = 0;
+            }
+        }
+
         //gravity
         //if swapGrav true -> vel -
         //if swapGrav false -> vel +
+        Log.v(TAG,"isFalling: "+Falling);
+        Log.v(TAG,"isGravSwap: "+swapGrav);
+        Log.v(TAG,"vely: "+vely);
+
         if(!swapGrav)
         {
             if(vely < Gravity && Falling)
@@ -82,7 +114,7 @@ public class PlayerEntity implements EntityBase , Collidable{
             if(vely > -Gravity && Falling)
             {
                 vely -= 9.8;
-            }else if(!Falling)
+            }else if(!Falling && vely > 0)
             {
                 vely = 0;
             }
@@ -91,28 +123,6 @@ public class PlayerEntity implements EntityBase , Collidable{
         //if swapGrav true -> (yPos+vely > 50(for now))
         //if swapGrav false ->(yPos+vely < 633)
 
-            if(!swapGrav)
-            {
-                if(yPos+vely < 633)
-                {
-                    yPos+=vely;
-                }
-                else
-                {
-                    vely = 0;
-                }
-            }
-            else
-            {
-                if(yPos+vely > 100)
-                {
-                    yPos+= vely;
-                }
-                else
-                {
-                    vely = 0;
-                }
-            }
 
 
 
@@ -122,29 +132,35 @@ public class PlayerEntity implements EntityBase , Collidable{
 
 
 
-       if(TouchManager.Instance.HasTouch()){
+
+
+
+
+
+    }
+
+    private void CheckJump() {
+        if(TouchManager.Instance.HasTouch()){
             float imgRad = spritesheet.GetWidth() * .5f;
-             if (Collision.SphereToSphere((float) TouchManager.Instance.GetPosX(), (float) TouchManager.Instance.GetPosY(),0.0f, (float) xPos, (float) yPos,imgRad)){
+            if (Collision.SphereToSphere((float) TouchManager.Instance.GetPosX(), (float) TouchManager.Instance.GetPosY(),0.0f, (float) xPos, (float) yPos,imgRad)){
+                if (vely == 0)
+                {
+                    Log.v(TAG,"can jump");
+                    if(!swapGrav)
+                    {
+                        vely = -JumpVel;
+                    }
+                    else
+                    {
+                        vely = JumpVel;
 
+                    }
+                    Log.v(TAG, "vely" + (vely));
+                    Log.v(TAG, "posY" + (yPos));
 
-                 if (vely == 0)
-                 {
-                     //if swapGrav false -> vely = -JumpVel
-                     //if swapGrav true -> vely = JumpVel
-                     if(!swapGrav)
-                     {
-                         vely = -JumpVel;
-                     }
-                     else
-                     {
-                         vely = JumpVel;
-                         Log.v(TAG, "yPos + vely" + (yPos + vely));
-
-                     }
-                 }
+                }
             }
         }
-
 
     }
 
@@ -208,25 +224,31 @@ public class PlayerEntity implements EntityBase , Collidable{
 
     @Override
     public void OnHit(Collidable _other) {
-//        Falling  = false;
-//        if(vely > 0){
-//            yPos = (_other.GetPosY()- this.GetHeight());
-//        }
+
 
     }
 
     @Override
     public void OnBoxHit(Collidable _other) {
-        Log.v(TAG,"HIT");
         Falling  = false;
-        if(vely > 0){//change
+        //Collision Detection
+        if(vely > 0)
+        {
+            vely = 0;
             yPos = (_other.GetPosY()- (this.GetHeight() * 1.5));
         }
-//        Log.v(TAG, "UH");
-//        Falling  = false;
-//        if(vely > 0){
-//            yPos = (_other.GetPosY()- this.GetHeight());
-    //    }
+        if(vely < 0 ){
+            Falling = true;
+            yPos -= (velx+1);
+            vely = -1*vely;
+        }
+
+
+
+
+
+
+
     }
 
     @Override

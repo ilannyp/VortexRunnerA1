@@ -64,7 +64,7 @@ public class SpikeEntity implements EntityBase , Collidable{
     public void Render(Canvas _canvas) {
         if(_bStatus)
         {
-            System.out.println(xPos);
+            //System.out.println(xPos);
             Bitmap bmp = ResourceManager.Instance.GetBitmap(R.drawable.spike);
             spritesheet = new Sprite(bmp, 1,1,1);
             spritesheet.Render(_canvas, xPos,yPos);

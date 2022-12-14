@@ -34,7 +34,7 @@ public class MainGameSceneState implements StateBase {
         //Player = SmurfEntity.Create();// For week 7
         //SmurfEntity.Create(); // For week 7
         SmurfEntityTest.Create();
-        Spike = SpikeEntity.Create();
+        //Spike = SpikeEntity.Create();
         PauseButtonEntity.Create();
         PlayerEntity.Create();
         SwapGravButtonEntity.Create();
@@ -66,7 +66,7 @@ public class MainGameSceneState implements StateBase {
        // System.out.println(timer);
         if(SpikeTimer >= 12)
         {
-            SpikeEntity.Create();
+            //SpikeEntity.Create();
             System.out.println("Spawn");
             SpikeTimer = 0;
         }
