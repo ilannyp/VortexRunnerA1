@@ -234,6 +234,7 @@ public class PlayerEntity implements EntityBase , Collidable{
                 vely = 0;
                 if(_other.GetType() == "SmurfEntityTest")
                 {
+                    
                     yPos = (_other.GetPosY()- (this.GetHeight() * 1.1));
                 }
                 else if(_other.GetType() == "Wall")
