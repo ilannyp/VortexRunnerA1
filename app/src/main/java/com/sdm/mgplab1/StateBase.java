@@ -14,4 +14,6 @@ public interface StateBase {
     void OnExit();
     void Render(Canvas _canvas);
     void Update(float _dt);
+
+    void SetEnd();
 }

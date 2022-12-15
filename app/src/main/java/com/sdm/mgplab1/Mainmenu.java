@@ -94,7 +94,12 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
     @Override
     public void Update(float _dt) {
     }
-	
+
+    @Override
+    public void SetEnd() {
+
+    }
+
     @Override
     public String GetName() {
         return "Mainmenu";

@@ -28,6 +28,8 @@ public class GameSystem {
         StateManager.Instance.AddState(new Mainmenu());
         StateManager.Instance.AddState(new MainGameSceneState());
         StateManager.Instance.AddState(new Levelselect());
+        StateManager.Instance.AddState(new LoseState());
+
     }
 
     public void SetIsPaused(boolean _newIsPaused)
