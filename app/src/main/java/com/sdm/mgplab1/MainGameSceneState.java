@@ -19,6 +19,7 @@ public class MainGameSceneState implements StateBase {
     private float SpeedUpTimer = 0.0f;
     private float SlowDownTimer = 0.0f;
     private boolean gameWon = false;
+    public static boolean wanGoBack;
     // Timer for next entity to be spawned
     private float SpawnNewEntityTimer = 0.0f;
     // Max timer for next entity to be spawned
@@ -33,6 +34,7 @@ public class MainGameSceneState implements StateBase {
 
     public void Reset()
     {
+        wanGoBack = false;
         EntityManager.Instance.Clean();
       timer = 0.0f;
       WallTimer = 0.0f;
@@ -364,6 +366,8 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void OnEnter(SurfaceView _view)
     {
+        wanGoBack = false;
+        GameSystem.Instance.SetIsPaused(false);
         RenderBackground.Create();
         RenderTextEntity.Create();
         Floor.Create();
@@ -373,6 +377,7 @@ public class MainGameSceneState implements StateBase {
         PauseButtonEntity.Create();
         PlayerEntity.Create();
         SwapGravButtonEntity.Create();
+        BackToMainMenuButtonEntity.Create();
        // TwoBlockWall.CreateNew(1,3);
         //InvertedOneBlockWall.Create();
 
@@ -384,6 +389,7 @@ public class MainGameSceneState implements StateBase {
         EntityManager.Instance.Clean();
         GamePage.Instance.finish();
         GameSystem.Instance.SetIsWon(false);
+
     }
 
     @Override
@@ -394,7 +400,10 @@ public class MainGameSceneState implements StateBase {
 
     @Override
     public void Update(float _dt) {
-
+        if(wanGoBack)
+        {
+            StateManager.Instance.ChangeState("Levelselect");
+        }
         //timer += _dt;
 
         EntityManager.Instance.Update(_dt);
