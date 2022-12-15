@@ -1,8 +1,8 @@
 package com.sdm.mgplab1;
 
-import static java.lang.Math.round;
-
+import android.app.GameManager;
 import android.bluetooth.le.ScanSettings;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.text.method.Touch;
 import android.util.Log;
@@ -31,6 +31,25 @@ public class MainGameSceneState implements StateBase {
     private int _noOfWallsSmall = 0;
     protected static final String TAG = null;
 
+    public void Reset()
+    {
+        EntityManager.Instance.Clean();
+      timer = 0.0f;
+      WallTimer = 0.0f;
+      SpikeTimer = 0.0f;
+      SpeedUpTimer = 0.0f;
+      SlowDownTimer = 0.0f;
+      gameWon = false;
+      // Timer for next entity to be spawned
+        SpawnNewEntityTimer = 0.0f;
+        // Max timer for next entity to be spawned
+        MaxSpawnEntityTimer = 1.f;
+       pattern1Start = true;
+        _noOfSpike = 0;
+        _noOfWalls = 0;
+        _noOfWallsSmall = 0;
+        final String TAG = null;
+    }
 
 
     public void SpawnSpike(int NumberOfSpikes)
@@ -143,10 +162,10 @@ public class MainGameSceneState implements StateBase {
             SpikeEntity.Create();
         }
 
-        if(timer == 243)
-        {
-            SmurfEntityTest.Create();
-        }
+//        if(timer == 243)
+//        {
+//            SmurfEntityTest.Create();
+//        }
         if(timer == 273)
         {
             SpikeEntity.Create();
@@ -325,8 +344,13 @@ public class MainGameSceneState implements StateBase {
         if(timer == 1328)
         {
             GameSystem.Instance.SetIsWon(true);
-        }
 
+        }
+        if(timer == 1500)
+        {
+            StateManager.Instance.ChangeState("Levelselect");
+
+        }
         //TODO: To create until timer reaches 2220
         //System.out.println(timer);
     }
@@ -356,8 +380,10 @@ public class MainGameSceneState implements StateBase {
 
     @Override
     public void OnExit() {
+        Reset();
         EntityManager.Instance.Clean();
         GamePage.Instance.finish();
+        GameSystem.Instance.SetIsWon(false);
     }
 
     @Override

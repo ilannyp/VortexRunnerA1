@@ -24,10 +24,10 @@ public class GameSystem {
 
     public void Init(SurfaceView _view)
     {
-
         // We will add all of our states into the state manager here!
         StateManager.Instance.AddState(new Mainmenu());
         StateManager.Instance.AddState(new MainGameSceneState());
+        StateManager.Instance.AddState(new Levelselect());
     }
 
     public void SetIsPaused(boolean _newIsPaused)

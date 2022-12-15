@@ -160,7 +160,7 @@ public class PlayerEntity implements EntityBase , Collidable{
 
 
     public void Render(Canvas _canvas) {
-        //if(_bStatus)
+        if(_bStatus)
         {
             _canvas.drawBitmap(sbmp, (int) (xPos - sbmp.getWidth()*0.5f), (int) (yPos - sbmp.getHeight()*0.5f), null);
             //spritesheet.Render(_canvas, (int)xPos,(int)yPos); //If want to animate our player

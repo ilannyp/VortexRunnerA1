@@ -61,8 +61,9 @@ public class Levelselect extends Activity implements OnClickListener, StateBase 
         }
         else if (v == btn_back)
         {
-            //intent.setClass(this, Mainmenu.class);
-            StateManager.Instance.ChangeState("Mainmenu");
+            Levelselect.this.finish();
+            intent.setClass(this, Mainmenu.class);
+            //StateManager.Instance.ChangeState("Mainmenu");
         }
         startActivity(intent);
 

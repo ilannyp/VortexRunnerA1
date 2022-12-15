@@ -48,6 +48,7 @@ public class Option extends Activity implements View.OnClickListener , StateBase
 
         if (view == btn_back)
         {
+            Option.this.finish();
             intent.setClass(this, Mainmenu.class);
         }
         startActivity(intent);
