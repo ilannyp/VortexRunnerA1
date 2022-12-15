@@ -348,6 +348,9 @@ public class MainGameSceneState implements StateBase {
             GameSystem.Instance.SetIsWon(true);
 
         }
+
+        // Percentage = 1350 / 100
+
         if(timer == 1500)
         {
             StateManager.Instance.ChangeState("Levelselect");
@@ -453,6 +456,11 @@ public class MainGameSceneState implements StateBase {
 //                }
 //            }
 //        }
+    }
+
+    @Override
+    public void SetEnd() {
+
     }
 }
 

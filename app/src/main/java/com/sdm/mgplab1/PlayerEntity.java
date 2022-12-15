@@ -1,5 +1,6 @@
 package com.sdm.mgplab1;
 
+import android.app.GameManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -128,7 +129,10 @@ public class PlayerEntity implements EntityBase , Collidable{
         {
             xPos += 40;
         }
-
+        if(!_bStatus)
+        {
+            GamePage.Instance.SetEnd();
+        }
     }
 
     private void CheckJump() {

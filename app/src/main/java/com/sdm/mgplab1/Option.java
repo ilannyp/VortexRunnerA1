@@ -70,6 +70,12 @@ public class Option extends Activity implements View.OnClickListener , StateBase
     public void Update(float _dt) {
 
     }
+
+    @Override
+    public void SetEnd() {
+
+    }
+
     @Override
     public String GetName() { return "Option";}
 
