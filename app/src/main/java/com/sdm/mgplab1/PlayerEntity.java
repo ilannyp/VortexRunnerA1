@@ -19,7 +19,7 @@ public class PlayerEntity implements EntityBase , Collidable{
     private boolean isInit = false;
     protected static final String TAG = null;
     protected static boolean swapGrav = false;
-
+    public boolean _bStatus = true;
 
 
 
@@ -27,7 +27,7 @@ public class PlayerEntity implements EntityBase , Collidable{
     private static double velx;
     private static double vely;
     public double Gravity = 11.8;
-    public static double JumpVel = 45;
+    public static double JumpVel = 55;  // original = 45, changing to 55 to test
     public static boolean Falling = false;
     public boolean Jumpable = false;
 
@@ -52,16 +52,19 @@ public class PlayerEntity implements EntityBase , Collidable{
                 (int) (ScreenHeight)/7,true);
         spritesheet = new Sprite(bmp, 1,1,16);    //If want to animated our player
 
-        JumpVel = ScreenHeight * 0.075  ;
+        // TODO: Uncomment Irfan's JumpVel value
+        //JumpVel = ScreenHeight * 0.075  ;
+        //JumpVel = ScreenHeight * 0.065;
 
-
-        xPos = ScreenWidth / 7;
-        yPos = 296;
-
+        xPos = ScreenWidth / 6;
+        //yPos = 296;
+        yPos = ScreenHeight * 8/9;
         isInit = true;
 
     }
     public void Update(float _dt) {
+        if (GameSystem.Instance.GetIsPaused())
+            return;
         xPos+=velx;
         yPos+=vely;
 
@@ -123,13 +126,16 @@ public class PlayerEntity implements EntityBase , Collidable{
         //if swapGrav true -> (yPos+vely > 50(for now))
         //if swapGrav false ->(yPos+vely < 633)
 
-
+        if(GameSystem.Instance.GetIsWon())
+        {
+            xPos += 40;
+        }
 
     }
 
     private void CheckJump() {
         if(TouchManager.Instance.HasTouch()){
-            float imgRad = spritesheet.GetWidth() * .5f;
+            float imgRad = spritesheet.GetWidth() * 2.5f;
             if (Collision.SphereToSphere((float) TouchManager.Instance.GetPosX(), (float) TouchManager.Instance.GetPosY(),0.0f, (float) xPos, (float) yPos,imgRad)){
                 if (vely == 0)
                 {
@@ -154,9 +160,11 @@ public class PlayerEntity implements EntityBase , Collidable{
 
 
     public void Render(Canvas _canvas) {
-
-        _canvas.drawBitmap(sbmp, (int) (xPos - sbmp.getWidth()*0.5f), (int) (yPos - sbmp.getHeight()*0.5f), null);
-        //spritesheet.Render(_canvas, (int)xPos,(int)yPos); //If want to animate our player
+        //if(_bStatus)
+        {
+            _canvas.drawBitmap(sbmp, (int) (xPos - sbmp.getWidth()*0.5f), (int) (yPos - sbmp.getHeight()*0.5f), null);
+            //spritesheet.Render(_canvas, (int)xPos,(int)yPos); //If want to animate our player
+        }
     }
     public boolean IsInit() {
         return bmp != null;
@@ -186,12 +194,12 @@ public class PlayerEntity implements EntityBase , Collidable{
 
     @Override
     public void SetStatus(boolean bStatus) {
-
+            _bStatus = bStatus;
     }
 
     @Override
     public boolean GetStatus() {
-        return false;
+        return _bStatus;
     }
 
     @Override

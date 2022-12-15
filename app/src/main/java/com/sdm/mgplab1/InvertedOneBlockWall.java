@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceView;
 
-public class SmurfEntityTest implements EntityBase , Collidable{
+public class InvertedOneBlockWall implements EntityBase , Collidable{
 
     private Bitmap bmp = null;
     private Sprite spritesheet=null;//using Sprite Class
@@ -32,7 +32,7 @@ public class SmurfEntityTest implements EntityBase , Collidable{
 
         spritesheet = new Sprite(bmp, 1,1,1);
         xPos = _view.getWidth() ;
-        yPos = _view.getHeight() * 8/9;
+        yPos = _view.getHeight() * 1/9;
 
         isInit = true;
 
@@ -86,15 +86,15 @@ public class SmurfEntityTest implements EntityBase , Collidable{
         return ENTITY_TYPE.ENT_SMURF;
     }
 
-    public static SmurfEntityTest Create(){
-        SmurfEntityTest result = new SmurfEntityTest();
+    public static InvertedOneBlockWall Create(){
+        InvertedOneBlockWall result = new InvertedOneBlockWall();
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_SMURF);
         return result;
     }
 
     @Override
     public String GetType() {
-        return "SmurfEntityTest";
+        return "InvertedOneBlockWall";
     }
 
     @Override

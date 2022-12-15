@@ -37,27 +37,28 @@ public class InvertedSpikeEntity implements EntityBase , Collidable{
 
     }
     public void Update(float _dt) {
-
+        if (GameSystem.Instance.GetIsPaused())
+            return;
         spritesheet.Update(_dt);
-        AddForceTowardsLeft(20);
+        AddForceTowardsLeft(40);
         //Log.v(TAG,"x: " + xPos + " y " + yPos);
 
 //        //addon codes provide on slides from week 6 -- Slide no.7
-        if(TouchManager.Instance.HasTouch()){
-            //Check collision here
-            float imgRad = spritesheet.GetWidth() * .5f;
-            if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(),TouchManager.Instance.GetPosY(),0.0f,xPos,yPos,imgRad)) {
-                //Collided
-                hasTouched = true;
-
-                xPos = TouchManager.Instance.GetPosX();
-                yPos = TouchManager.Instance.GetPosY();
-
-            }
-        }
+//        if(TouchManager.Instance.HasTouch()){
+//            //Check collision here
+//            float imgRad = spritesheet.GetWidth() * .5f;
+//            if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(),TouchManager.Instance.GetPosY(),0.0f,xPos,yPos,imgRad)) {
+//                //Collided
+//                hasTouched = true;
+//
+//                xPos = TouchManager.Instance.GetPosX();
+//                yPos = TouchManager.Instance.GetPosY();
+//
+//            }
+//        }
         if(xPos < 0)
         {
-            _bStatus = false;
+            isDone = true;
         }
     }
     public void Render(Canvas _canvas) {
@@ -115,19 +116,15 @@ public class InvertedSpikeEntity implements EntityBase , Collidable{
 
     @Override
     public float GetRadius() {
-        return 55.0f;
+        return 65.0f;
     }
 
     @Override
     public void OnHit(Collidable _other) {
         //Log.v(TAG,"SmurfEnityTest colliding with"+ _other);
-        if(_other.GetType() == "PlayerEntity")
-        {
-            //if(_other.GetPosX())
-        }
         //_other.SetPosX(_other.GetPosX() - 5);
         // TODO: Change "SmurfEntity" to "PlayerEntity"
-        if(_other.GetType() == "SmurfEntity")
+        if(_other.GetType() == "PlayerEntity")
             _other.SetStatus(false);
     }
 

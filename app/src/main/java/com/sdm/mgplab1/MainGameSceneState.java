@@ -18,7 +18,7 @@ public class MainGameSceneState implements StateBase {
     private float SpikeTimer = 0.0f;
     private float SpeedUpTimer = 0.0f;
     private float SlowDownTimer = 0.0f;
-
+    private boolean gameWon = false;
     // Timer for next entity to be spawned
     private float SpawnNewEntityTimer = 0.0f;
     // Max timer for next entity to be spawned
@@ -80,7 +80,6 @@ public class MainGameSceneState implements StateBase {
             }
         }
     }
-
     public void SpawnNewEntity(int index,float _dt)
     {
         SpawnNewEntityTimer+= _dt;
@@ -98,15 +97,8 @@ public class MainGameSceneState implements StateBase {
     public void LevelHC(int _dt)
     {
         timer += _dt;
-        if(timer < 700)
-        {
-            if(SpawnNewEntityTimer > MaxSpawnEntityTimer)
-            {
-                InvertedSpikeEntity.Create();
-                SpawnNewEntityTimer = 0;
-            }
-        }
-        if(timer == 60)
+
+        if(timer == 63)
         {
             SmurfEntityTest.Create();
         }
@@ -114,27 +106,226 @@ public class MainGameSceneState implements StateBase {
         {
             SpikeEntity.Create();
         }
-        if(timer == 78)
+        if(timer == 77)
         {
             SpikeEntity.Create();
         }
-        if(timer == 90)
+        if(timer == 86)
         {
             SmurfEntityTest.Create();
         }
-        if(timer == 120)
+        if(timer == 98)
         {
             TwoBlockWall.Create();
         }
-        if(timer == 180)
+        if(timer == 157)
         {
             SmurfEntityTest.Create();
         }
-        if(timer == 210)
+        if(timer == 170)
+        {
+            TwoBlockWall.Create();
+        }
+        if(timer == 182)
+        {
+            SmurfEntityTest.Create();
+        }
+        if(timer == 195)
+        {
+            TwoBlockWall.Create();
+        }
+        if(timer == 208)
+        {
+            SmurfEntityTest.Create();
+        }
+        if(timer == 223)
         {
             SpikeEntity.Create();
         }
 
+        if(timer == 243)
+        {
+            SmurfEntityTest.Create();
+        }
+        if(timer == 273)
+        {
+            SpikeEntity.Create();
+        }
+
+        if(timer == 320)
+        {
+            SmurfEntityTest.Create();
+        }
+
+        if(timer == 333)
+        {
+            TwoBlockWall.Create();
+        }
+        if(timer == 340)
+        {
+            SpikeEntity.Create();
+        }
+        if(timer == 350)
+        {
+            TwoBlockWall.Create();
+        }
+
+        if(timer == 367)
+        {
+            TwoBlockWall.Create();
+        }
+
+        if(timer == 400)
+        {
+            SpikeEntity.Create();
+        }
+
+        if(timer == 440)
+        {
+            SpikeEntity.Create();
+        }
+
+        if(timer == 480)
+        {
+            SpikeEntity.Create();
+        }
+
+        if(timer == 530)
+        {
+            SmurfEntityTest.Create();
+        }
+        if(timer == 570)
+        {
+            SmurfEntityTest.Create();
+        }
+
+
+        if(timer == 660)
+        {
+            InvertedOneBlockWall.Create();
+        }
+
+        if(timer == 720)
+        {
+            InvertedOneBlockWall.Create();
+        }
+        if(timer == 727)
+        {
+            InvertedSpikeEntity.Create();
+        }
+        if(timer == 734)
+        {
+            InvertedSpikeEntity.Create();
+        }
+        if(timer == 745)
+        {
+            InvertedOneBlockWall.Create();
+        }
+        if(timer == 767)
+        {
+            InvertedTwoBlockWall.Create();
+        }
+        if(timer == 806) //157 - 98
+        {
+            InvertedOneBlockWall.Create();
+        }
+        if(timer == 819) // 170 - 157
+        {
+            InvertedTwoBlockWall.Create();
+        }
+        if(timer == 831) // 182 - 170
+        {
+            InvertedOneBlockWall.Create();
+        }
+        if(timer == 844) // 195 - 182
+        {
+            InvertedTwoBlockWall.Create();
+        }
+        if(timer == 857) //208 - 195
+        {
+            InvertedOneBlockWall.Create();
+        }
+        if(timer == 873) //223 - 208
+        {
+            InvertedSpikeEntity.Create();
+        }
+        if(timer == 913)
+        {
+            InvertedTwoBlockWall.Create();
+        }
+
+        if(timer == 963)
+        {
+            TwoBlockWall.Create();
+        }
+
+        if(timer == 1003)
+        {
+            InvertedTwoBlockWall.Create();
+        }
+
+        if(timer == 1013)
+        {
+            SmurfEntityTest.Create();
+        }
+
+        if(timer == 1183)
+        {
+            SmurfEntityTest.Create();
+        }
+        if(timer == 1189)
+        {
+            SpikeEntity.Create();
+        }
+        if(timer == 1213)
+        {
+            SmurfEntityTest.Create();
+        }
+        if(timer == 1219)
+        {
+            SpikeEntity.Create();
+        }
+
+
+        if(timer < 300)
+        {
+            if(SpawnNewEntityTimer > MaxSpawnEntityTimer)
+            {
+                InvertedSpikeEntity.Create();
+                SpawnNewEntityTimer = 0;
+            }
+        }
+
+        if(timer > 600 && timer <  890)
+        {
+            if(SpawnNewEntityTimer > MaxSpawnEntityTimer)
+            {
+                SpikeEntity.Create();
+                SpawnNewEntityTimer = 0.95f;
+            }
+        }
+
+        if(timer > 1080 && timer <  1155)
+        {
+            if(SpawnNewEntityTimer > MaxSpawnEntityTimer)
+            {
+                SpikeEntity.Create();
+                SpawnNewEntityTimer = 0.95f;
+            }
+        }
+        if(timer > 1170 && timer <  1275)
+        {
+            if(SpawnNewEntityTimer > MaxSpawnEntityTimer)
+            {
+                InvertedSpikeEntity.Create();
+                SpawnNewEntityTimer = 0.95f;
+            }
+        }
+
+        if(timer == 1328)
+        {
+            GameSystem.Instance.SetIsWon(true);
+        }
 
         //TODO: To create until timer reaches 2220
         //System.out.println(timer);
@@ -150,6 +341,7 @@ public class MainGameSceneState implements StateBase {
     public void OnEnter(SurfaceView _view)
     {
         RenderBackground.Create();
+        RenderTextEntity.Create();
         Floor.Create();
         // Example to include another Renderview for Pause Button
         //Player = SmurfEntity.Create();// For week 7
@@ -157,10 +349,8 @@ public class MainGameSceneState implements StateBase {
         PauseButtonEntity.Create();
         PlayerEntity.Create();
         SwapGravButtonEntity.Create();
-
-
-        //TwoBlockWall.CreateNew(200,600);
-
+       // TwoBlockWall.CreateNew(1,3);
+        //InvertedOneBlockWall.Create();
 
     }
 
@@ -178,13 +368,19 @@ public class MainGameSceneState implements StateBase {
 
     @Override
     public void Update(float _dt) {
+
         //timer += _dt;
+
+        EntityManager.Instance.Update(_dt);
+        if (GameSystem.Instance.GetIsPaused())
+            return;
+
         WallTimer += _dt;
         SpawnNewEntityTimer+= _dt;
         SpikeTimer+= _dt;
         SpeedUpTimer += _dt;
         SlowDownTimer += _dt;
-        EntityManager.Instance.Update(_dt);
+
        // System.out.println(timer);
 
         // ToDo: If got time change from hardcode to using patterns

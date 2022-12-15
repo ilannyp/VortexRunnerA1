@@ -41,7 +41,7 @@ public class RenderBackground implements EntityBase {
 
 
     public void Update(float _dt) {
-        if (GameSystem.Instance.GetIsPaused())
+        if (GameSystem.Instance.GetIsPaused() || GameSystem.Instance.GetIsWon())
             return;
         xPos -=_dt * 500; //500 is just a variable. Can be edited. To deal with speed, how fast the screen scrolls.
         if (xPos < - ScreenWidth){

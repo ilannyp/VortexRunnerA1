@@ -52,7 +52,7 @@ public class SwapGravButtonEntity implements EntityBase {
                 (int) (ScreenHeight)/7,true);
 
         xPos = ScreenWidth - 150;
-        yPos = ScreenHeight - 60;
+        yPos = ScreenHeight * 8/9;
         isInit = true;
     }
 
@@ -61,7 +61,7 @@ public class SwapGravButtonEntity implements EntityBase {
         buttonDelay += _dt;
         if (TouchManager.Instance.HasTouch()){
             if (TouchManager.Instance.IsDown() && !Paused) {
-                float imgRadius = sbmp.getHeight() * 0.5f;
+                float imgRadius = sbmp.getHeight() * 1.5f;
 
                 if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(),
                         TouchManager.Instance.GetPosY(), 0.0f, xPos, yPos, imgRadius)

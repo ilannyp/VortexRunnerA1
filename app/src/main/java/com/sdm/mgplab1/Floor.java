@@ -40,9 +40,10 @@ public class Floor implements EntityBase{
 
 
     public void Update(float _dt) {
-        if (GameSystem.Instance.GetIsPaused())
+        if (GameSystem.Instance.GetIsPaused() || GameSystem.Instance.GetIsWon())
             return;
-        xPos -=_dt * 600; //500 is just a variable. Can be edited. To deal with speed, how fast the screen scrolls.
+
+        xPos -=_dt * 1270; //500 is just a variable. Can be edited. To deal with speed, how fast the screen scrolls.
         if (xPos < - ScreenWidth){
             xPos = 0;
         }

@@ -11,6 +11,7 @@ public class GameSystem {
 
     // Game stuff
     private boolean isPaused = false;
+    private boolean isWon = false;
 
     // Singleton Pattern : Blocks others from creating
     private GameSystem()
@@ -37,6 +38,16 @@ public class GameSystem {
     public boolean GetIsPaused()
     {
         return isPaused;
+    }
+
+    public void SetIsWon(boolean _newIsWon)
+    {
+        isWon = _newIsWon;
+    }
+
+    public boolean GetIsWon()
+    {
+        return isWon;
     }
 
 }
