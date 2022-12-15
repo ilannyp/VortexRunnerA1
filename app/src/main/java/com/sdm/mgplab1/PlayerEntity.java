@@ -98,9 +98,7 @@ public class PlayerEntity implements EntityBase , Collidable{
         //gravity
         //if swapGrav true -> vel -
         //if swapGrav false -> vel +
-        //Log.v(TAG,"isFalling: "+Falling);
-        //Log.v(TAG,"isGravSwap: "+swapGrav);
-        //Log.v(TAG,"vely: "+vely);
+
 
         if(!swapGrav)
         {
@@ -228,16 +226,48 @@ public class PlayerEntity implements EntityBase , Collidable{
     public void OnBoxHit(Collidable _other) {
         Falling  = false;
         //Collision Detection
-        if(vely > 0)
+
+        if(!swapGrav)
         {
-            vely = 0;
-            yPos = (_other.GetPosY()- (this.GetHeight() * 1.1));
+            if(vely > 0)
+            {
+                vely = 0;
+                if(_other.GetType() == "SmurfEntityTest")
+                {
+                    yPos = (_other.GetPosY()- (this.GetHeight() * 1.1));
+                }
+                else if(_other.GetType() == "Wall")
+                {
+                    yPos = (_other.GetPosY()- (this.GetHeight() * 1.6));
+                }
+            }
+            if(vely < 0 ){
+                Falling = true;
+                yPos -= (velx+1);
+                vely = -1*vely;
+            }
         }
-        if(vely < 0 ){
-            Falling = true;
-            yPos -= (velx+1);
-            vely = -1*vely;
+        else
+        {
+            if(vely < 0)
+            {
+                vely = 0;
+                if(_other.GetType() == "SmurfEntityTest")
+                {
+                    yPos = (_other.GetPosY()- (this.GetHeight() * 1.1));
+                }
+                else if(_other.GetType() == "Wall")
+                {
+                    yPos = (_other.GetPosY()- (this.GetHeight() * 1.6));
+                }
+            }
+            if(vely < 0 ){
+                Falling = true;
+                yPos += (velx+1);
+                vely = +1*vely;
+            }
         }
+
 
 
 
