@@ -77,6 +77,11 @@ public class Option extends Activity implements View.OnClickListener , StateBase
     }
 
     @Override
+    public void SetWinScreen() {
+
+    }
+
+    @Override
     public String GetName() { return "Option";}
 
     @Override

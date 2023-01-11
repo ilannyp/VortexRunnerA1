@@ -12,6 +12,8 @@ import android.view.WindowManager;
 import android.content.Intent;
 import android.widget.ImageButton;
 
+import java.util.logging.Level;
+
 // Created by TanSiewLan2021
 
 public class Levelselect extends Activity implements OnClickListener, StateBase {  //Using StateBase class
@@ -87,6 +89,11 @@ public class Levelselect extends Activity implements OnClickListener, StateBase 
 
     @Override
     public void SetEnd() {
+
+    }
+
+    @Override
+    public void SetWinScreen() {
 
     }
 

@@ -94,7 +94,7 @@ public class InvertedOneBlockWall implements EntityBase , Collidable{
 
     @Override
     public String GetType() {
-        return "InvertedOneBlockWall";
+        return "SmurfEntityTest";
     }
 
     @Override

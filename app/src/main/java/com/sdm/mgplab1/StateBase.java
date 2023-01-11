@@ -16,4 +16,6 @@ public interface StateBase {
     void Update(float _dt);
 
     void SetEnd();
+
+    void SetWinScreen();
 }

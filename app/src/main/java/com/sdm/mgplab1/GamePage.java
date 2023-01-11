@@ -75,5 +75,15 @@ public class GamePage extends Activity implements StateBase {
         StateManager.Instance.ChangeState("LoseState"); // Default is like a loading page
         startActivity(intent);
     }
+
+    @Override
+    public void SetWinScreen()
+    {
+        finish();
+        Intent intent = new Intent();
+        intent.setClass(this, WinState.class);
+        StateManager.Instance.ChangeState("WinState"); // Default is like a loading page
+        startActivity(intent);
+    }
 }
 

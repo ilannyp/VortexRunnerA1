@@ -101,6 +101,11 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
     }
 
     @Override
+    public void SetWinScreen() {
+
+    }
+
+    @Override
     public String GetName() {
         return "Mainmenu";
     }

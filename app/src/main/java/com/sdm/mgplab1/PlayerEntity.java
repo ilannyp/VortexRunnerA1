@@ -129,9 +129,17 @@ public class PlayerEntity implements EntityBase , Collidable{
         {
             xPos += 40;
         }
+        if(xPos < 0)
+        {
+            _bStatus = false;
+        }
         if(!_bStatus)
         {
             GamePage.Instance.SetEnd();
+        }
+        if(xPos > ScreenWidth)
+        {
+            GamePage.Instance.SetWinScreen();
         }
     }
 
@@ -258,11 +266,11 @@ public class PlayerEntity implements EntityBase , Collidable{
                 vely = 0;
                 if(_other.GetType() == "SmurfEntityTest")
                 {
-                    yPos = (_other.GetPosY()- (this.GetHeight() * 1.1));
+                    yPos = (_other.GetPosY()+ (this.GetHeight() * 1.1));
                 }
                 else if(_other.GetType() == "Wall")
                 {
-                    yPos = (_other.GetPosY()- (this.GetHeight() * 1.6));
+                    yPos = (_other.GetPosY() + (this.GetHeight() * 1.6));
                 }
             }
             if(vely < 0 ){

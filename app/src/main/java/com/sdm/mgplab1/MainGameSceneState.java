@@ -242,7 +242,7 @@ public class MainGameSceneState implements StateBase {
         {
             InvertedOneBlockWall.Create();
         }
-        if(timer == 767)
+        if(timer == 757)
         {
             InvertedTwoBlockWall.Create();
         }
@@ -351,10 +351,9 @@ public class MainGameSceneState implements StateBase {
 
         // Percentage = 1350 / 100
 
-        if(timer == 1500)
+        if(timer == 1400)
         {
-            StateManager.Instance.ChangeState("Levelselect");
-
+            StateManager.Instance.ChangeState("WinState");
         }
         //TODO: To create until timer reaches 2220
         //System.out.println(timer);
@@ -460,6 +459,11 @@ public class MainGameSceneState implements StateBase {
 
     @Override
     public void SetEnd() {
+
+    }
+
+    @Override
+    public void SetWinScreen() {
 
     }
 }

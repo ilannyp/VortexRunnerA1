@@ -1,5 +1,4 @@
 package com.sdm.mgplab1;
-
 import android.app.Activity;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
@@ -12,7 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.content.Intent;
 
-public class LoseState extends Activity implements OnClickListener, StateBase {
+public class WinState extends Activity implements OnClickListener, StateBase {
     protected boolean _active = true;
 
     @Override
@@ -26,7 +25,7 @@ public class LoseState extends Activity implements OnClickListener, StateBase {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.losescreen);
+        setContentView(R.layout.winscreen);
 
 //        btn_start = (Button)findViewById(R.id.btn_start);
 //        btn_start.setOnClickListener(this); //Set Listener to this button --> Start Button
@@ -37,12 +36,12 @@ public class LoseState extends Activity implements OnClickListener, StateBase {
 //        btn_option = (Button)findViewById(R.id.btn_option);
 //        btn_option.setOnClickListener(this); //Set Listener to this button --> Back Button
 //
-        StateManager.Instance.AddState(new LoseState());
+        StateManager.Instance.AddState(new WinState());
     }
     public boolean onTouchEvent(MotionEvent event){
         if(event.getAction() == MotionEvent.ACTION_DOWN){
-            LoseState.this.finish();
-            Intent intent = new Intent(LoseState.this, Mainmenu.class);
+            WinState.this.finish();
+            Intent intent = new Intent(WinState.this, Mainmenu.class);
             startActivity(intent);
         }
         return true;
@@ -54,7 +53,7 @@ public class LoseState extends Activity implements OnClickListener, StateBase {
 
     @Override
     public String GetName() {
-        return "LoseState";
+        return "WinState";
     }
 
     @Override
