@@ -34,7 +34,7 @@ protected static final String TAG = null;
 
     public void Init(SurfaceView _view) {
         bmp = BitmapFactory.decodeResource(_view.getResources(),
-                R.drawable.pause);
+                R.drawable.back);
         bmp1 = BitmapFactory.decodeResource(_view.getResources(),
                 R.drawable.pause1);
 
