@@ -1,6 +1,8 @@
 package com.sdm.mgplab1;
 
 import android.graphics.Canvas;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.view.SurfaceView;
 
 // Created by TanSiewLan2021
@@ -21,6 +23,7 @@ public interface EntityBase
     void SetIsDone(boolean _isDone);
 
     void Init(SurfaceView _view);
+
     void Update(float _dt);
     void Render(Canvas _canvas);
 

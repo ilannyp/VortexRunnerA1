@@ -1,6 +1,10 @@
 package com.sdm.mgplab1;
 
+import android.content.Context;
 import android.graphics.Canvas;
+import android.hardware.Sensor;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.view.SurfaceView;
 
 import java.util.Collections;
@@ -14,6 +18,7 @@ public class EntityManager {
     public final static EntityManager Instance = new EntityManager();
     private LinkedList<EntityBase> entityList = new LinkedList<EntityBase>();
     private SurfaceView view = null;
+    private SensorManager sensor;
 
     private EntityManager()
     {
@@ -22,6 +27,9 @@ public class EntityManager {
     public void Init(SurfaceView _view)
     {
         view = _view;
+       // sensor = (SensorManager)_view.getContext().getSystemService(Context.SENSOR_SERVICE);
+       // sensor.registerListener((SensorEventListener) this, sensor.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0),
+       //         SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     public void Update(float _dt)
