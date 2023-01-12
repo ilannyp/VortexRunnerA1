@@ -70,11 +70,15 @@ protected static final String TAG = null;
                     if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(),
                             TouchManager.Instance.GetPosY(), 0.0f, xPos, yPos, imgRadius)
                             && buttonDelay >= 0.25) {
-                        MainGameSceneState.wanGoBack = true;
+
+                        //MainGameSceneState.wanGoBack = true;
 
 
+                        //Button got clicked show the popup dialog
+                        if(BackToMenuConfirmDialogFragment.IsShown)
+                            return;
 
-                        //change state back to level or mainmenu idk
+
 
 
 

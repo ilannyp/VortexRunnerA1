@@ -43,6 +43,9 @@ public class PlayerEntity implements EntityBase , Collidable{
 
     //@Override
     public void Init(SurfaceView _view){
+        GameSystem.Instance.SaveEditBegin();
+        GameSystem.Instance.SetIntInSave("Score",0);
+        GameSystem.Instance.SaveEditEnd();
         bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.playerbox);
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
@@ -69,6 +72,14 @@ public class PlayerEntity implements EntityBase , Collidable{
         xPos+=velx;
         yPos+=vely;
 
+        int testScore = GameSystem.Instance.GetIntFromSave("Score");
+        ++testScore;
+        GameSystem.Instance.SaveEditBegin();
+        GameSystem.Instance.SetIntInSave("Score", testScore);
+        GameSystem.Instance.SaveEditEnd();
+
+        String showScore = String.format("%d",GameSystem.Instance.GetIntFromSave("Score"));
+        Log.v("score", showScore);
         CheckJump();
 
         if(!swapGrav)
@@ -132,6 +143,12 @@ public class PlayerEntity implements EntityBase , Collidable{
         if(xPos < 0)
         {
             _bStatus = false;
+            AudioManager.Instance.PlayAudio(R.raw.soundfeelsbadman, 0.9f);
+            int HighScore = GameSystem.Instance.GetIntFromSave("HighScore");
+            HighScore = GameSystem.Instance.GetIntFromSave("Score");
+            GameSystem.Instance.SaveEditBegin();
+            GameSystem.Instance.SetIntInSave("HighScore", HighScore);
+            GameSystem.Instance.SaveEditBegin();
         }
         if(!_bStatus)
         {

@@ -4,6 +4,8 @@ import android.app.GameManager;
 import android.bluetooth.le.ScanSettings;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.text.method.Touch;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -398,6 +400,14 @@ public class MainGameSceneState implements StateBase {
     public void Render(Canvas _canvas)
     {
         EntityManager.Instance.Render(_canvas);
+
+        String scoreText = String.format("Score : %d", GameSystem.Instance.GetIntFromSave("Score"));
+
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        paint.setTextSize(64);
+
+        _canvas.drawText(scoreText, 10, 220, paint);
     }
 
     @Override

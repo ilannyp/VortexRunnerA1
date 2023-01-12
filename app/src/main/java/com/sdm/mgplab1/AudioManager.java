@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.view.SurfaceView;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class AudioManager {
     public final static AudioManager Instance = new AudioManager();
@@ -21,21 +22,31 @@ public class AudioManager {
     public void Init(SurfaceView _view)
     {
         view = _view;
-        res = _view.getResources();
+        //res = _view.getResources();
+        Release();//clear the audiomap
+
     }
 
-    public void PlayAudio(int _id)
-    {
-        if (audioMap.containsKey(_id))
-        {
-            audioMap.get(_id).reset();
-            audioMap.get(_id).start();
-        }
+    public void PlayAudio(int _id, float _volume) {
+        if (audioMap.containsKey(_id)) {
+//            audioMap.get(_id).reset();
+//            audioMap.get(_id).start();
+            //have the clip
+            MediaPlayer curr = audioMap.get(_id);
+            curr.seekTo(0);
+            curr.setVolume(_volume, _volume);
+            curr.start();
+        } else{
+            MediaPlayer curr = MediaPlayer.create(view.getContext(), _id);
+            audioMap.put(_id,curr);
+            curr.setVolume(_volume, _volume);
+            curr.start();
+            }
 
-        // Load the audio
-        MediaPlayer newAudio = MediaPlayer.create(view.getContext(), _id);
-        audioMap.put(_id, newAudio);
-        newAudio.start();
+//        // Load the audio
+//        MediaPlayer newAudio = MediaPlayer.create(view.getContext(), _id);
+//        audioMap.put(_id, newAudio);
+//        newAudio.start();
     }
 
     public boolean IsPlaying(int _id)
@@ -44,5 +55,35 @@ public class AudioManager {
             return false;
 
         return audioMap.get(_id).isPlaying();
+    }
+    public void StopAudio(int _id)
+    {
+        MediaPlayer curr = audioMap.get(_id);
+        curr.stop();
+    }
+
+    public void Release(){
+        for (Map.Entry<Integer, MediaPlayer> entry : audioMap.entrySet())
+        {
+            entry.getValue().stop();
+            entry.getValue().reset();
+            entry.getValue().release();
+        }
+        //empty
+        audioMap.clear();
+    }
+
+    private MediaPlayer GetAudio(int _id)
+    {
+        //check if audio is loaded or not
+        if(audioMap.containsKey(_id))
+        {
+            //has the clip then return it
+            return audioMap.get(_id);
+        }
+        //load it if not
+        MediaPlayer result = MediaPlayer.create(view.getContext(), _id);
+        audioMap.put(_id,result);
+        return result;
     }
 }

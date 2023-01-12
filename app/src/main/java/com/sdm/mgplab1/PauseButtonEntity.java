@@ -4,6 +4,7 @@ package com.sdm.mgplab1;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
@@ -31,6 +32,7 @@ public class PauseButtonEntity implements EntityBase {
     }
 
     public void Init(SurfaceView _view) {
+
         bmp = BitmapFactory.decodeResource(_view.getResources(),
                 R.drawable.pause);
         bmp1 = BitmapFactory.decodeResource(_view.getResources(),
@@ -65,6 +67,8 @@ public class PauseButtonEntity implements EntityBase {
                         && buttonDelay >= 0.25) {
 
                     Paused = true;
+                    AudioManager.Instance.PlayAudio(R.raw.buttonsfx2,0.1f);
+
                     //GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
                     //Button got clicked show the popup dialog
                     if(PauseConfirmDialogFragment.IsShown)

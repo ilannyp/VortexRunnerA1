@@ -58,7 +58,7 @@ public class RenderTextEntity implements EntityBase {
         paint.setStrokeWidth(200);
         paint.setTextSize(100);
         paint.setTypeface(myfont);
-        _canvas.drawText("FPS:" + fps,30,80, paint);
+        //_canvas.drawText("FPS:" + fps,30,80, paint);
 
     }
 
