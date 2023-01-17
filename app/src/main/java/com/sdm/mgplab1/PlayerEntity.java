@@ -143,8 +143,8 @@ public class PlayerEntity implements EntityBase , Collidable{
         }
         if(xPos < 0)
         {
-            _bStatus = false;
             AudioManager.Instance.PlayAudio(R.raw.soundfeelsbadman, 0.9f);
+            _bStatus = false;
             int HighScore = GameSystem.Instance.GetIntFromSave("HighScore");
             HighScore = GameSystem.Instance.GetIntFromSave("Score");
             GameSystem.Instance.SaveEditBegin();
@@ -154,6 +154,7 @@ public class PlayerEntity implements EntityBase , Collidable{
         if(!_bStatus)
         {
             GamePage.Instance.SetEnd();
+            AudioManager.Instance.StopAudio(R.raw.musicbackground);
         }
         if(xPos > ScreenWidth)
         {
