@@ -57,10 +57,13 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
 
         if (v == btn_start)
         {
+
             // intent --> to set to another class which another page or screen that we are launching.
             Mainmenu.this.finish();
             intent.setClass(this, Levelselect.class);
             StateManager.Instance.ChangeState("Levelselect"); // Default is like a loading page
+            //AudioManager.Instance.PlayAudio(R.raw.buttonsfx2,0.1f);
+
 
         }
         else if (v == btn_option)
@@ -69,11 +72,13 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
             // intent --> to set to another class which another page or screen that we are launching.
             intent.setClass(this, Option.class);
             StateManager.Instance.ChangeState("Option"); // Default is like a loading page
+            //AudioManager.Instance.PlayAudio(R.raw.buttonsfx2,0.1f);
         }
         else if (v == btn_back)
         {
            Mainmenu.this.finish();
             System.exit(0);
+            //AudioManager.Instance.PlayAudio(R.raw.buttonsfx2,0.1f);
         }
         startActivity(intent);
 

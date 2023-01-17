@@ -15,6 +15,11 @@ public class TouchManager {
 
     }
 
+    public void setTouchState(TouchState State) {
+         status = State;
+
+    }
+
     public enum TouchState{
         NONE,
         DOWN,
@@ -42,7 +47,6 @@ public class TouchManager {
     public boolean IsSwipedUp(){
         return status == TouchState.SWIPEUP;
     }
-
 
     public int GetPosX(){
         return posX;

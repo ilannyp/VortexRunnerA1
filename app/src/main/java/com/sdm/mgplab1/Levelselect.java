@@ -60,6 +60,7 @@ public class Levelselect extends Activity implements OnClickListener, StateBase 
             intent.setClass(this, GamePage.class);
             StateManager.Instance.ChangeState("MainGame"); // Default is like a loading page
 
+
         }
         else if (v == btn_back)
         {
@@ -77,6 +78,7 @@ public class Levelselect extends Activity implements OnClickListener, StateBase 
 	
     @Override
     public void OnEnter(SurfaceView _view) {
+        AudioManager.Instance.Init(_view);
     }
 	
     @Override

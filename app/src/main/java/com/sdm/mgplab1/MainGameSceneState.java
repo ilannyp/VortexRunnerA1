@@ -385,6 +385,9 @@ public class MainGameSceneState implements StateBase {
        // TwoBlockWall.CreateNew(1,3);
         //InvertedOneBlockWall.Create();
 
+        AudioManager.Instance.PlayAudio(R.raw.musicbackground,0.1f);
+
+
     }
 
     @Override
@@ -412,6 +415,8 @@ public class MainGameSceneState implements StateBase {
 
     @Override
     public void Update(float _dt) {
+
+        //if(AudioManager.Instance.IsPlaying()
         if(wanGoBack)
         {
             StateManager.Instance.ChangeState("Levelselect");

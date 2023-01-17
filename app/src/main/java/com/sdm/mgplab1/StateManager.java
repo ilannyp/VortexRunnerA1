@@ -28,6 +28,7 @@ public class StateManager {
     public void Init(SurfaceView _view)
     {
         view = _view;
+        AudioManager.Instance.Init(_view);
     }
 
     void AddState(StateBase _newState)

@@ -69,6 +69,7 @@ public class SwapGravButtonEntity implements EntityBase {
 
                     if(PlayerEntity.GetVelY() == 0)
                     {
+                        AudioManager.Instance.PlayAudio(R.raw.swapgrav, 1.0f);
                         Swiped = !Swiped;
                         PlayerEntity.swapGrav = !PlayerEntity.swapGrav;
 

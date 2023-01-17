@@ -43,6 +43,7 @@ public class PlayerEntity implements EntityBase , Collidable{
 
     //@Override
     public void Init(SurfaceView _view){
+        swapGrav = false;
         GameSystem.Instance.SaveEditBegin();
         GameSystem.Instance.SetIntInSave("Score",0);
         GameSystem.Instance.SaveEditEnd();
@@ -64,7 +65,7 @@ public class PlayerEntity implements EntityBase , Collidable{
         //yPos = 296;
         yPos = ScreenHeight * 8/9;
         isInit = true;
-
+        TouchManager.Instance.setTouchState(TouchManager.TouchState.NONE);
     }
     public void Update(float _dt) {
         if (GameSystem.Instance.GetIsPaused())
@@ -79,7 +80,7 @@ public class PlayerEntity implements EntityBase , Collidable{
         GameSystem.Instance.SaveEditEnd();
 
         String showScore = String.format("%d",GameSystem.Instance.GetIntFromSave("Score"));
-        Log.v("score", showScore);
+
         CheckJump();
 
         if(!swapGrav)
@@ -161,12 +162,14 @@ public class PlayerEntity implements EntityBase , Collidable{
     }
 
     private void CheckJump() {
+
         if(TouchManager.Instance.HasTouch()){
             float imgRad = spritesheet.GetWidth() * 2.5f;
             if (Collision.SphereToSphere((float) TouchManager.Instance.GetPosX(), (float) TouchManager.Instance.GetPosY(),0.0f, (float) xPos, (float) yPos,imgRad)){
                 if (vely == 0)
                 {
                     Log.v(TAG,"can jump");
+                    AudioManager.Instance.PlayAudio(R.raw.jump,1.0f);
                     if(!swapGrav)
                     {
                         vely = -JumpVel;
@@ -256,14 +259,13 @@ public class PlayerEntity implements EntityBase , Collidable{
         Falling  = false;
         //Collision Detection
 
-        if(!swapGrav)
-        {
+//        if(!swapGrav)
+//        {
             if(vely > 0)
             {
                 vely = 0;
                 if(_other.GetType() == "SmurfEntityTest")
                 {
-                    
                     yPos = (_other.GetPosY()- (this.GetHeight() * 1.1));
                 }
                 else if(_other.GetType() == "Wall")
@@ -276,29 +278,29 @@ public class PlayerEntity implements EntityBase , Collidable{
                 yPos -= (velx+1);
                 vely = -1*vely;
             }
-        }
-        else
-        {
-            if(vely < 0)
-            {
-                vely = 0;
-                if(_other.GetType() == "SmurfEntityTest")
-                {
-                    yPos = (_other.GetPosY()+ (this.GetHeight() * 1.1));
-                }
-                else if(_other.GetType() == "Wall")
-                {
-                    yPos = (_other.GetPosY() + (this.GetHeight() * 1.6));
-                }
-            }
-            if(vely < 0 ){
-                Falling = true;
-                yPos += (velx+1);
-                vely = +1*vely;
-            }
-        }
-
-
+//        }
+//        else
+//        {
+//            if(vely < 0)
+//            {
+//                vely = 0;
+//                if(_other.GetType() == "SmurfEntityTest")
+//                {
+//                    yPos = (_other.GetPosY()+ (this.GetHeight() * 1.1));
+//                }
+//                else if(_other.GetType() == "Wall")
+//                {
+//                    yPos = (_other.GetPosY() + (this.GetHeight() * 1.6));
+//                }
+//            }
+//            if(vely < 0 ){
+//                Falling = true;
+//                yPos += (velx+1);
+//                vely = +1*vely;
+//            }
+//        }
+//
+//
 
 
 
