@@ -117,25 +117,25 @@ public class TwoBlockWall implements EntityBase , Collidable{
 
     @Override
     public float GetRadius() {
-        return 55.0f;
+        return 110.0f;
     }
 
     @Override
     public void OnHit(Collidable _other) {
         //Log.v(TAG,"SmurfEnityTest colliding with"+ _other);
-    // if(_other.GetType() == "PlayerEntity"){
-    //     _other.SetPosX(_other.GetPosX() - 40);
-    // }
+     if(_other.GetType() == "PlayerEntity"){
+         _other.SetPosX(_other.GetPosX() - 40);
+     }
     }
 
     @Override
     public void OnBoxHit(Collidable _other) {
         //Log.v(TAG, "OnBoxHit ");  //not workin well
 
-          if(_other.GetType() == "PlayerEntity" )//&& _other.GetPosY() <= yPos + (spritesheet.GetHeight() / 2))
-         {
-
-         }
+//          if(_other.GetType() == "PlayerEntity" )//&& _other.GetPosY() <= yPos + (spritesheet.GetHeight() / 2))
+//         {
+//             _other.SetPosX(_other.GetPosX() - 40);
+//         }
     }
 
     @Override

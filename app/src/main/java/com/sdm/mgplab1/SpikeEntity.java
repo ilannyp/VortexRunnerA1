@@ -124,7 +124,6 @@ public class SpikeEntity implements EntityBase , Collidable{
     public void OnHit(Collidable _other) {
         //Log.v(TAG,"SmurfEnityTest colliding with"+ _other);
         //_other.SetPosX(_other.GetPosX() - 5);
-        // TODO: Change "SmurfEntity" to "PlayerEntity"
         if(_other.GetType() == "PlayerEntity")
             _other.SetStatus(false);
     }

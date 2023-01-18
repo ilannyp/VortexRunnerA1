@@ -20,16 +20,18 @@ public class CoinEntity implements EntityBase , Collidable{
         bmp = ResourceManager.Instance.GetBitmap(R.drawable.flystar);
         spritesheet = new Sprite(bmp, 1,5,16);
         xPos = _view.getWidth();
-        yPos = _view.getHeight()* 8/9;
+        yPos = _view.getHeight()* 6/9;
 
         isInit = true;
 
     }
 
     public void Update(float _dt) {
+        if (GameSystem.Instance.GetIsPaused())
+            return;
         spritesheet.Update(_dt);
         AddForceTowardsLeft(40);
-        if(xPos < 0) { isDone = true;}
+        if(xPos < -2) { isDone = true;}
     }
 
 
@@ -49,10 +51,10 @@ public class CoinEntity implements EntityBase , Collidable{
         }
     }
 
-    @Override
-    public boolean IsInit() {return spritesheet != null;}
 
-    @Override
+    public boolean IsInit() {return bmp != null;}
+
+
     public String GetType() {return "Coin";}
 
     @Override
@@ -82,24 +84,25 @@ public class CoinEntity implements EntityBase , Collidable{
 
     @Override
     public void OnHit(Collidable _other) {
-        if(_other.GetType() == "PlayerEntity"){
-            _bStatus = false;
-        }
+
     }
 
     @Override
     public void OnBoxHit(Collidable _other) {
-
+        if(_other.GetType() == "PlayerEntity"){
+            SetStatus(false);
+        }
     }
 
     @Override
     public void SetPosX(float _newX) {
+        xPos = (int) _newX;
 
     }
 
     @Override
     public void SetPosY(float _newY) {
-
+        xPos = (int) _newY;
     }
 
     @Override
@@ -112,12 +115,12 @@ public class CoinEntity implements EntityBase , Collidable{
         return spritesheet.GetWidth();
     }
 
-    @Override
+
     public boolean IsDone() {
         return isDone;
     }
 
-    @Override
+
     public void SetIsDone(boolean _isDone) {isDone = _isDone;}
 
     public int GetRenderLayer() {return LayerConstants.RENDERPLAYER_LAYER;}

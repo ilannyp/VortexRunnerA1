@@ -19,6 +19,7 @@ public interface Collidable {
     void SetPosX(float _newX);
     void SetPosY(float _newY);
 
+
     int GetHeight();
     int GetWidth();
 

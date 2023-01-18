@@ -143,6 +143,7 @@ public class MainGameSceneState implements StateBase {
         }
         if(timer == 157)
         {
+            CoinEntity.Create();
             SmurfEntityTest.Create();
         }
         if(timer == 170)
@@ -375,15 +376,11 @@ public class MainGameSceneState implements StateBase {
         RenderBackground.Create();
         RenderTextEntity.Create();
         Floor.Create();
-        // Example to include another Renderview for Pause Button
-        //Player = SmurfEntity.Create();// For week 7
-        //SmurfEntity.Create(); // For week 7
         PauseButtonEntity.Create();
         PlayerEntity.Create();
+        CoinEntity.Create();
         SwapGravButtonEntity.Create();
         BackToMainMenuButtonEntity.Create();
-       // TwoBlockWall.CreateNew(1,3);
-        //InvertedOneBlockWall.Create();
 
         AudioManager.Instance.PlayAudio(R.raw.musicbackground,0.1f);
 
