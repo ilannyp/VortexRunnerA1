@@ -16,6 +16,8 @@ public class GameSystem {
     SharedPreferences sharedPref = null;
     SharedPreferences.Editor editor = null;
 
+    int score = 0;
+
     // Singleton Pattern : Blocks others from creating
     private GameSystem() {
     }
@@ -80,7 +82,7 @@ public class GameSystem {
 
     public int GetIntFromSave(String _key)
     {
-        return sharedPref.getInt(_key,999);//999 is a temp number
+        return sharedPref.getInt(_key,1);
 
 
     }

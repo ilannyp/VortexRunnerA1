@@ -39,6 +39,8 @@ public class PlayerEntity implements EntityBase , Collidable{
     public boolean Jumpable = false;
     protected Rect hitbox;
 
+
+
     private void InitHitbox(Sprite spritesheet)
     {
         hitbox = new Rect((int)xPos, (int)yPos, spritesheet.GetWidth(), spritesheet.GetHeight());
@@ -110,8 +112,11 @@ public class PlayerEntity implements EntityBase , Collidable{
         GameSystem.Instance.SaveEditBegin();
         GameSystem.Instance.SetIntInSave("Score", testScore);
         GameSystem.Instance.SaveEditEnd();
-       // UpdateHitbox();
+
         String showScore = String.format("%d",GameSystem.Instance.GetIntFromSave("Score"));
+
+       // UpdateHitbox();
+
 
         CheckJump();
 
@@ -176,12 +181,14 @@ public class PlayerEntity implements EntityBase , Collidable{
         if(xPos < 0)
         {
             AudioManager.Instance.PlayAudio(R.raw.soundfeelsbadman, 0.9f);
+            int score = GameSystem.Instance.GetIntFromSave("Score");
+            GameSystem.Instance.SaveEditBegin();
+            GameSystem.Instance.SetIntInSave("HighScore", score);//set high score in "HighScore"
+            GameSystem.Instance.SaveEditEnd();
+
+            Log.v(TAG, "score: " + score);
             _bStatus = false;
-            int HighScore = GameSystem.Instance.GetIntFromSave("HighScore");
-            HighScore = GameSystem.Instance.GetIntFromSave("Score");
-            GameSystem.Instance.SaveEditBegin();
-            GameSystem.Instance.SetIntInSave("HighScore", HighScore);
-            GameSystem.Instance.SaveEditBegin();
+
         }
         if(!_bStatus)
         {
