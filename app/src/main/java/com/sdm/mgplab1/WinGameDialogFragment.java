@@ -20,12 +20,6 @@ public class WinGameDialogFragment extends DialogFragment {
                         GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
                         IsShown = false;
                     }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int id){
-                        //User cancelled pause
-                        IsShown = false;
-                    }
                 });
         // Create the AlertDialog object and return it
         return builder.create();

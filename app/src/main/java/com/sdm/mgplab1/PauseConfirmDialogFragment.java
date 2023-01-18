@@ -14,17 +14,19 @@ public class PauseConfirmDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
         builder.setMessage("Confirm Pause?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
                         // User triggered pause
-                        GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
+                        //GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
                         IsShown = false;
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
                         //User cancelled pause
+                        GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
                         IsShown = false;
                     }
                 });

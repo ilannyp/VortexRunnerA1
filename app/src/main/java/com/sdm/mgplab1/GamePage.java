@@ -57,7 +57,7 @@ public class GamePage extends Activity implements StateBase {
     }
 
     @Override
-    public void Render(Canvas _canvas) {
+     public void Render(Canvas _canvas) {
 
     }
 

@@ -67,6 +67,7 @@ public class TwoBlockWall implements EntityBase , Collidable{
             Bitmap bmp = ResourceManager.Instance.GetBitmap(R.drawable.twoblockwall);
             spritesheet = new Sprite(bmp, 1,1,1);
             spritesheet.Render(_canvas, xPos,yPos);
+
         }
     }
     public boolean IsInit() {
@@ -87,6 +88,7 @@ public class TwoBlockWall implements EntityBase , Collidable{
     public static TwoBlockWall Create(){
         TwoBlockWall result = new TwoBlockWall();
         EntityManager.Instance.AddEntity(result, EntityBase.ENTITY_TYPE.ENT_SMURF);
+
         return result;
     }
     public static TwoBlockWall CreateNew(int xPos, int yPos)
@@ -95,6 +97,7 @@ public class TwoBlockWall implements EntityBase , Collidable{
         result.xPos = xPos;
         result.yPos = yPos;
         EntityManager.Instance.AddEntity(result, EntityBase.ENTITY_TYPE.ENT_SMURF);
+
         return result;
     }
     @Override
@@ -120,18 +123,19 @@ public class TwoBlockWall implements EntityBase , Collidable{
     @Override
     public void OnHit(Collidable _other) {
         //Log.v(TAG,"SmurfEnityTest colliding with"+ _other);
-        if(_other.GetType() == "PlayerEntity"){
-            _other.SetPosX(_other.GetPosX() - 40);
-        }
+    // if(_other.GetType() == "PlayerEntity"){
+    //     _other.SetPosX(_other.GetPosX() - 40);
+    // }
     }
 
     @Override
     public void OnBoxHit(Collidable _other) {
         //Log.v(TAG, "OnBoxHit ");  //not workin well
-//        if(_other.GetType() == "PlayerEntity" && _other.GetPosY() <= yPos + (spritesheet.GetHeight() / 2))
-//        {
-//            _other.SetPosX(_other.GetPosX() - 30);
-//        }
+
+          if(_other.GetType() == "PlayerEntity" )//&& _other.GetPosY() <= yPos + (spritesheet.GetHeight() / 2))
+         {
+
+         }
     }
 
     @Override

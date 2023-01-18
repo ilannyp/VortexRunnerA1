@@ -69,6 +69,7 @@ public class SmurfEntityTest implements EntityBase , Collidable{
             Bitmap bmp = ResourceManager.Instance.GetBitmap(R.drawable.walltile);
             spritesheet = new Sprite(bmp, 1,1,1);
             spritesheet.Render(_canvas, xPos,yPos);
+            //System.out.println(spritesheet.GetHeight());
         }
     }
     public boolean IsInit() {

@@ -4,11 +4,17 @@ import android.app.GameManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.drawable.shapes.RectShape;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceView;
 
-import kotlin.jvm.internal.PropertyReference0Impl;
+import androidx.constraintlayout.solver.widgets.Rectangle;
+
 
 public class PlayerEntity implements EntityBase , Collidable{
 
@@ -31,6 +37,30 @@ public class PlayerEntity implements EntityBase , Collidable{
     public static double JumpVel = 55;  // original = 45, changing to 55 to test
     public static boolean Falling = false;
     public boolean Jumpable = false;
+    protected Rect hitbox;
+
+    private void InitHitbox(Sprite spritesheet)
+    {
+        hitbox = new Rect((int)xPos, (int)yPos, spritesheet.GetWidth(), spritesheet.GetHeight());
+    }
+    protected void drawHitbox(Canvas canvas)
+    {
+        Paint paint;
+        paint = new Paint();
+        paint.setColor(1);
+        canvas.drawRect(hitbox,paint);
+    }
+
+    protected void UpdateHitbox()
+    {
+        hitbox.left = (int)xPos;
+        hitbox.top = (int)yPos;
+    }
+    public Rect GetHitbox()
+    {
+        return hitbox;
+    }
+
 
     public boolean IsDone() {
         return isDone;
@@ -47,6 +77,7 @@ public class PlayerEntity implements EntityBase , Collidable{
         GameSystem.Instance.SaveEditBegin();
         GameSystem.Instance.SetIntInSave("Score",0);
         GameSystem.Instance.SaveEditEnd();
+
         bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.playerbox);
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
@@ -56,7 +87,7 @@ public class PlayerEntity implements EntityBase , Collidable{
         sbmp = Bitmap.createScaledBitmap(bmp, (int)(ScreenWidth)/12,
                 (int) (ScreenHeight)/7,true);
         spritesheet = new Sprite(bmp, 1,1,16);    //If want to animated our player
-
+       // InitHitbox(spritesheet);
         // TODO: Uncomment Irfan's JumpVel value
         //JumpVel = ScreenHeight * 0.075  ;
         //JumpVel = ScreenHeight * 0.065;
@@ -73,12 +104,13 @@ public class PlayerEntity implements EntityBase , Collidable{
         xPos+=velx;
         yPos+=vely;
 
+        //System.out.println(spritesheet.GetHeight());
         int testScore = GameSystem.Instance.GetIntFromSave("Score");
         ++testScore;
         GameSystem.Instance.SaveEditBegin();
         GameSystem.Instance.SetIntInSave("Score", testScore);
         GameSystem.Instance.SaveEditEnd();
-
+       // UpdateHitbox();
         String showScore = String.format("%d",GameSystem.Instance.GetIntFromSave("Score"));
 
         CheckJump();
@@ -160,6 +192,8 @@ public class PlayerEntity implements EntityBase , Collidable{
         {
             GamePage.Instance.SetWinScreen();
         }
+
+
     }
 
     private void CheckJump() {
@@ -193,8 +227,10 @@ public class PlayerEntity implements EntityBase , Collidable{
     public void Render(Canvas _canvas) {
         if(_bStatus)
         {
+            //drawHitbox(_canvas);
             _canvas.drawBitmap(sbmp, (int) (xPos - sbmp.getWidth()*0.5f), (int) (yPos - sbmp.getHeight()*0.5f), null);
             //spritesheet.Render(_canvas, (int)xPos,(int)yPos); //If want to animate our player
+
         }
     }
     public boolean IsInit() {
@@ -329,6 +365,8 @@ public class PlayerEntity implements EntityBase , Collidable{
     public int GetWidth() {
         return sbmp.getWidth();
     }
+
+
 
     public static double GetVelY(){
         return vely;

@@ -57,6 +57,7 @@ public class Levelselect extends Activity implements OnClickListener, StateBase 
         if (v == btn_start)
         {
             // intent --> to set to another class which another page or screen that we are launching.
+            Levelselect.this.finish();
             intent.setClass(this, GamePage.class);
             StateManager.Instance.ChangeState("MainGame"); // Default is like a loading page
 
