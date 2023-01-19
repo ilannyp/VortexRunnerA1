@@ -92,7 +92,7 @@ public class EntityManager {
                             first.OnBoxHit(second);
                             second.OnBoxHit(first);
                         }
-                        PlayerEntity.Falling = true;
+
                     }
                 }
             }

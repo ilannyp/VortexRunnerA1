@@ -43,9 +43,10 @@ public class StateManager {
         nextState = stateMap.get(_nextState);
 
         // If no next state, we assign back to current state
-        if (nextState == null)
-            nextState = currState;
+        if (nextState == null) {
 
+            nextState = currState;
+        }
         // Extra to add if possible : throw some warning if next state function fails
     }
 

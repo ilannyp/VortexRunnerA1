@@ -68,14 +68,13 @@ public class PauseButtonEntity implements EntityBase {
 
                     Paused = true;
                     AudioManager.Instance.PlayAudio(R.raw.buttonsfx2,0.1f);
-
-                    //GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
+                    GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
                     //Button got clicked show the popup dialog
-                    if(PauseConfirmDialogFragment.IsShown)
-                        return;
+                  //if(PauseConfirmDialogFragment.IsShown)
+                  //    return;
 
-                    PauseConfirmDialogFragment newPauseConfirm = new PauseConfirmDialogFragment();
-                     newPauseConfirm.show(GamePage.Instance.getFragmentManager(),"PauseConfirm");
+                 // PauseConfirmDialogFragment newPauseConfirm = new PauseConfirmDialogFragment();
+                  //newPauseConfirm.show(GamePage.Instance.getFragmentManager(),"PauseConfirm");
                 }
 
             }

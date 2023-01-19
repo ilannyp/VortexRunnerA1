@@ -37,7 +37,6 @@ public class MainGameSceneState implements StateBase {
     public void Reset()
     {
         wanGoBack = false;
-        EntityManager.Instance.Clean();
       timer = 0.0f;
       WallTimer = 0.0f;
       SpikeTimer = 0.0f;
@@ -372,6 +371,7 @@ public class MainGameSceneState implements StateBase {
     public void OnEnter(SurfaceView _view)
     {
         wanGoBack = false;
+
         GameSystem.Instance.SetIsPaused(false);
         RenderBackground.Create();
         RenderTextEntity.Create();
@@ -383,6 +383,7 @@ public class MainGameSceneState implements StateBase {
         BackToMainMenuButtonEntity.Create();
 
         AudioManager.Instance.PlayAudio(R.raw.musicbackground,0.1f);
+
 
 
     }

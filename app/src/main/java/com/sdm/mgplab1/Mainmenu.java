@@ -19,11 +19,13 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
     private Button btn_start;
     private Button btn_back;
     private Button btn_option;
+    public static boolean leaveGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        leaveGame = false;
         // Hide Title
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -49,6 +51,7 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
     //Invoke a callback event in the view
     public void onClick(View v)
     {
+
         // Intent = action to be performed.
         // Intent is an object provides runtime binding.
         // new instance of this object intent
@@ -63,7 +66,7 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
             intent.setClass(this, Levelselect.class);
             StateManager.Instance.ChangeState("Levelselect"); // Default is like a loading page
             //AudioManager.Instance.PlayAudio(R.raw.buttonsfx2,0.1f);
-
+            startActivity(intent);
 
         }
         else if (v == btn_option)
@@ -73,15 +76,18 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
             intent.setClass(this, Option.class);
             StateManager.Instance.ChangeState("Option"); // Default is like a loading page
             //AudioManager.Instance.PlayAudio(R.raw.buttonsfx2,0.1f);
+            startActivity(intent);
         }
+
         else if (v == btn_back)
         {
-           Mainmenu.this.finish();
-            System.exit(0);
-            //AudioManager.Instance.PlayAudio(R.raw.buttonsfx2,0.1f);
-        }
-        startActivity(intent);
+            MainMenuLeaveConfirmDialogFragment leavingGame = new MainMenuLeaveConfirmDialogFragment();
+            leavingGame.show(this.getFragmentManager(),"LeaveConfirm");
 
+//           Mainmenu.this.finish();
+//           System.exit(0);
+           //AudioManager.Instance.PlayAudio(R.raw.buttonsfx2,0.1f);
+        }
     }
 
     @Override
@@ -98,6 +104,7 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
 	
     @Override
     public void Update(float _dt) {
+
     }
 
     @Override

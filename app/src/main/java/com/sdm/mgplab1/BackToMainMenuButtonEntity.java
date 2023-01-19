@@ -72,13 +72,12 @@ protected static final String TAG = null;
                             && buttonDelay >= 0.25) {
 
                         //MainGameSceneState.wanGoBack = true;
-
-
                         //Button got clicked show the popup dialog
                         if(BackToMenuConfirmDialogFragment.IsShown)
                             return;
 
-
+                       BackToMenuConfirmDialogFragment newBackToMenu = new BackToMenuConfirmDialogFragment();
+                       newBackToMenu.show(GamePage.Instance.getFragmentManager(),"BackToMenuConfirm");
 
 
 
