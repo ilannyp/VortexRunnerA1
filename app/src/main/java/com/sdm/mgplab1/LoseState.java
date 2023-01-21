@@ -25,9 +25,10 @@ public class LoseState extends Activity implements OnClickListener, StateBase {
     private  TextView highScoreText;
     String GetHighScoreString;
     String GetHighestScoreString;
-    int GetHighScore = 0;
-    int GetHighestScore = 0;
+    private int GetHighScore = 0;
+    private int GetHighestScore = 0;
     protected static final String TAG = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +41,7 @@ public class LoseState extends Activity implements OnClickListener, StateBase {
         {
             //store new highest score
             GameSystem.Instance.SaveEditBegin();
-            GameSystem.Instance.SetIntInSave("HighestScore", GetHighestScore);//set high score in "HighScore"
+            GameSystem.Instance.SetIntInSave("HighestScore", GetHighScore);//set high score in "HighScore"
             GameSystem.Instance.SaveEditEnd();
 
         }
@@ -68,7 +69,7 @@ public class LoseState extends Activity implements OnClickListener, StateBase {
 
 
 //
-        StateManager.Instance.AddState(new LoseState());
+        //StateManager.Instance.AddState(new LoseState());
     }
 //   public boolean onTouchEvent(MotionEvent event){
 //        if(event.getAction() == MotionEvent.ACTION_DOWN){
@@ -83,6 +84,7 @@ public class LoseState extends Activity implements OnClickListener, StateBase {
         Intent intent = new Intent();
         if(v==btn_leave){
             LoseState.this.finish();
+            Levelselect.level.finish();     // end the activity
             intent.setClass(LoseState.this,Mainmenu.class);
         }
         startActivity(intent);

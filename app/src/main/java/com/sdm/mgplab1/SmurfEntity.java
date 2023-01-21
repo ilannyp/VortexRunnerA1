@@ -146,6 +146,11 @@ public class SmurfEntity implements EntityBase , Collidable{
     }
 
     @Override
+    public void OnCoinHit(Collidable _other) {
+
+    }
+
+    @Override
     public void SetPosX(float _newX) {
         xPos = (int) _newX;
     }

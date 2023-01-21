@@ -13,6 +13,8 @@ public class GameSystem {
     // Game stuff
     private boolean isPaused = false;
     private boolean isWon = false;
+    private boolean isDead = false;     // Used for end pause of game
+
     SharedPreferences sharedPref = null;
     SharedPreferences.Editor editor = null;
 
@@ -43,6 +45,14 @@ public class GameSystem {
 
     public boolean GetIsPaused() {
         return isPaused;
+    }
+
+    public void SetIsDead(boolean _newIsDead) {
+        isDead = _newIsDead;
+    }
+
+    public boolean GetIsDead() {
+        return isDead;
     }
 
     public void SetIsWon(boolean _newIsWon) {

@@ -27,7 +27,7 @@ public class PlayerEntity implements EntityBase , Collidable{
     protected static final String TAG = null;
     protected static boolean swapGrav = false;
     public boolean _bStatus = true;
-
+    private int deathTimer = 0;
 
 
     private double xPos = 0, yPos = 0;
@@ -108,7 +108,8 @@ public class PlayerEntity implements EntityBase , Collidable{
 
         //System.out.println(spritesheet.GetHeight());
         int testScore = GameSystem.Instance.GetIntFromSave("Score");
-        ++testScore;
+        if (!GameSystem.Instance.GetIsDead())
+            ++testScore;
         GameSystem.Instance.SaveEditBegin();
         GameSystem.Instance.SetIntInSave("Score", testScore);
         GameSystem.Instance.SaveEditEnd();
@@ -192,9 +193,16 @@ public class PlayerEntity implements EntityBase , Collidable{
         }
         if(!_bStatus)
         {
-            GamePage.Instance.SetEnd();
-            AudioManager.Instance.StopAudio(R.raw.musicbackground);
+            GameSystem.Instance.SetIsDead(true);
+            deathTimer += 1;
+            System.out.println(deathTimer);
+            if(deathTimer > 60)
+            {
+                GamePage.Instance.SetEnd();
+                AudioManager.Instance.StopAudio(R.raw.musicbackground);
+            }
         }
+
         if(xPos > ScreenWidth)
         {
             GamePage.Instance.SetWinScreen();
@@ -303,53 +311,58 @@ public class PlayerEntity implements EntityBase , Collidable{
         Falling  = false;
         //Collision Detection
 
-//        if(!swapGrav)
-//        {
-            if(vely > 0)
+    if(!swapGrav)
+    {
+      if(vely > 0)
+      {
+          vely = 0;
+          if(_other.GetType() == "SmurfEntityTest")
+          {
+              yPos = (_other.GetPosY()- (this.GetHeight() * 1.1));
+          }
+          else if(_other.GetType() == "Wall")
+          {
+              yPos = (_other.GetPosY()- (this.GetHeight() * 1.6));
+          }
+      }
+      if(vely < 0 ){
+          Falling = true;
+          yPos -= (velx+1);
+          vely = -1*vely;
+      }
+    }
+    else
+    {
+        if(vely < 0)
+        {
+            vely = 0;
+            if(_other.GetType() == "SmurfEntityTest")
             {
-                vely = 0;
-                if(_other.GetType() == "SmurfEntityTest")
-                {
-                    yPos = (_other.GetPosY()- (this.GetHeight() * 1.1));
-                }
-                else if(_other.GetType() == "Wall")
-                {
-                    yPos = (_other.GetPosY()- (this.GetHeight() * 1.6));
-                }
+                yPos = (_other.GetPosY()+ (this.GetHeight() * 1.1));
             }
-            if(vely < 0 ){
-                Falling = true;
-                yPos -= (velx+1);
-                vely = -1*vely;
+            else if(_other.GetType() == "Wall")
+            {
+                yPos = (_other.GetPosY() + (this.GetHeight() * 1.6));
             }
-//        }
-//        else
-//        {
-//            if(vely < 0)
-//            {
-//                vely = 0;
-//                if(_other.GetType() == "SmurfEntityTest")
-//                {
-//                    yPos = (_other.GetPosY()+ (this.GetHeight() * 1.1));
-//                }
-//                else if(_other.GetType() == "Wall")
-//                {
-//                    yPos = (_other.GetPosY() + (this.GetHeight() * 1.6));
-//                }
-//            }
-//            if(vely < 0 ){
-//                Falling = true;
-//                yPos += (velx+1);
-//                vely = +1*vely;
-//            }
-//        }
-//
-//
+        }
+        if(vely < 0 ){
+            Falling = true;
+            yPos += (velx+1);
+            vely = +1*vely;
+        }
+    }
 
 
 
 
 
+
+
+
+    }
+
+    @Override
+    public void OnCoinHit(Collidable _other) {
 
     }
 

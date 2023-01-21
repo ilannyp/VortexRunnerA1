@@ -31,14 +31,14 @@ public class SmurfEntityTest implements EntityBase , Collidable{
         bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.walltile);
 
         spritesheet = new Sprite(bmp, 1,1,1);
-        xPos = _view.getWidth() ;
-        yPos = _view.getHeight() * 8/9;
+        //xPos = _view.getWidth() ;
+        //yPos = _view.getHeight() * 8/9;
 
         isInit = true;
 
     }
     public void Update(float _dt) {
-        if (GameSystem.Instance.GetIsPaused())
+        if (GameSystem.Instance.GetIsPaused() || GameSystem.Instance.GetIsDead())
             return;
         spritesheet.Update(_dt);
         AddForceTowardsLeft(40);
@@ -93,6 +93,14 @@ public class SmurfEntityTest implements EntityBase , Collidable{
         return result;
     }
 
+    public static SmurfEntityTest CreateNew(int newxPos, int newyPos){
+        SmurfEntityTest result = new SmurfEntityTest();
+        result.xPos = newxPos;
+        result.yPos = newyPos;
+        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_SMURF);
+        return result;
+    }
+
     @Override
     public String GetType() {
         return "SmurfEntityTest";
@@ -125,6 +133,11 @@ public class SmurfEntityTest implements EntityBase , Collidable{
     @Override
     public void OnBoxHit(Collidable _other) {
         //Log.v(TAG, "OnBoxHit ");  //not workin well
+    }
+
+    @Override
+    public void OnCoinHit(Collidable _other) {
+
     }
 
     @Override

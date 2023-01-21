@@ -5,7 +5,11 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+
+import java.util.logging.Level;
 
 public class MainMenuLeaveConfirmDialogFragment extends DialogFragment {
     public static boolean IsShown = false;

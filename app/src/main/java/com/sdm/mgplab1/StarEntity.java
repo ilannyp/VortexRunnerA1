@@ -137,6 +137,11 @@ public class StarEntity implements EntityBase, Collidable{
     }
 
     @Override
+    public void OnCoinHit(Collidable _other) {
+
+    }
+
+    @Override
     public void SetPosX(float _newX) {
 
     }

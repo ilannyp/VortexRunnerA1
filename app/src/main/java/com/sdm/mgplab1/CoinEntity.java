@@ -1,5 +1,6 @@
 package com.sdm.mgplab1;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -19,18 +20,22 @@ public class CoinEntity implements EntityBase , Collidable{
     public void Init(SurfaceView _view) {
         bmp = ResourceManager.Instance.GetBitmap(R.drawable.flystar);
         spritesheet = new Sprite(bmp, 1,5,16);
-        xPos = _view.getWidth();
-        yPos = _view.getHeight()* 6/9;
+
+       // Use these values for default spawning of coins
+       // xPos = _view.getWidth();
+       // yPos = _view.getHeight()* 6/9;
 
         isInit = true;
 
     }
 
     public void Update(float _dt) {
-        if (GameSystem.Instance.GetIsPaused())
+        if (GameSystem.Instance.GetIsPaused() || GameSystem.Instance.GetIsDead())
             return;
         spritesheet.Update(_dt);
         AddForceTowardsLeft(40);
+        System.out.println("xPos:" + xPos);
+        System.out.println("yPos:" + yPos);
         if(xPos < -2) { isDone = true;}
     }
 
@@ -90,8 +95,17 @@ public class CoinEntity implements EntityBase , Collidable{
     @Override
     public void OnBoxHit(Collidable _other) {
         if(_other.GetType() == "PlayerEntity"){
+            int testScore = GameSystem.Instance.GetIntFromSave("Score") + 5;
+            GameSystem.Instance.SaveEditBegin();
+            GameSystem.Instance.SetIntInSave("Score", testScore);
+            GameSystem.Instance.SaveEditEnd();
             SetStatus(false);
         }
+    }
+
+    @Override
+    public void OnCoinHit(Collidable _other) {
+
     }
 
     @Override
@@ -133,6 +147,14 @@ public class CoinEntity implements EntityBase , Collidable{
 
     public static CoinEntity Create(){
         CoinEntity result = new CoinEntity();
+        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_COIN);
+        return result;
+    }
+
+    public static CoinEntity CreateNew(int newxPos, int newyPos){
+        CoinEntity result = new CoinEntity();
+        result.xPos= newxPos;
+        result.yPos = newyPos;
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_COIN);
         return result;
     }

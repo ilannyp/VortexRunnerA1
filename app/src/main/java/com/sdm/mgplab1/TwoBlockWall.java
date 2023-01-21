@@ -36,7 +36,7 @@ public class TwoBlockWall implements EntityBase , Collidable{
 
     }
     public void Update(float _dt) {
-        if (GameSystem.Instance.GetIsPaused())
+        if (GameSystem.Instance.GetIsPaused() || GameSystem.Instance.GetIsDead())
             return;
         spritesheet.Update(_dt);
         AddForceTowardsLeft(40);
@@ -136,6 +136,11 @@ public class TwoBlockWall implements EntityBase , Collidable{
 //         {
 //             _other.SetPosX(_other.GetPosX() - 40);
 //         }
+    }
+
+    @Override
+    public void OnCoinHit(Collidable _other) {
+
     }
 
     @Override

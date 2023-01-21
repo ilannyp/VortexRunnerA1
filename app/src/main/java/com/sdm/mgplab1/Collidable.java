@@ -15,6 +15,7 @@ public interface Collidable {
 
     void OnHit(Collidable _other);
     void OnBoxHit(Collidable _other);
+    void OnCoinHit(Collidable _other);
 
     void SetPosX(float _newX);
     void SetPosY(float _newY);

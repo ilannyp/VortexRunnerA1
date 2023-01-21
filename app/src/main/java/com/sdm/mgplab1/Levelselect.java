@@ -21,11 +21,12 @@ public class Levelselect extends Activity implements OnClickListener, StateBase 
     //Define buttons
     private ImageButton btn_start;
     private Button btn_back;
-
+    public static Activity level;       // Activity Object, so i end the activity from another class
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        level  = this;
         // Hide Title
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -41,7 +42,7 @@ public class Levelselect extends Activity implements OnClickListener, StateBase 
         btn_back = (Button)findViewById(R.id.btn_back);
         btn_back.setOnClickListener(this); //Set Listener to this button --> Back Button
 
-        StateManager.Instance.AddState(new Levelselect());
+        //StateManager.Instance.AddState(new Levelselect());
     }
 
     @Override
@@ -57,11 +58,8 @@ public class Levelselect extends Activity implements OnClickListener, StateBase 
         if (v == btn_start)
         {
             // intent --> to set to another class which another page or screen that we are launching.
-            //Levelselect.this.finish();
             intent.setClass(this, GamePage.class);
             StateManager.Instance.ChangeState("MainGame"); // Default is like a loading page
-
-
         }
         else if (v == btn_back)
         {
@@ -69,6 +67,7 @@ public class Levelselect extends Activity implements OnClickListener, StateBase 
             intent.setClass(this, Mainmenu.class);
             //StateManager.Instance.ChangeState("Mainmenu");
         }
+
         startActivity(intent);
 
     }

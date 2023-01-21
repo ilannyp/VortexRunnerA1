@@ -1,5 +1,6 @@
 package com.sdm.mgplab1;
 
+import android.app.Activity;
 import android.app.GameManager;
 import android.bluetooth.le.ScanSettings;
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.SurfaceView;
 
 import androidx.core.util.SparseIntArrayKt;
+
+import javax.xml.transform.sax.SAXTransformerFactory;
 
 // Created by TanSiewLan2021
 
@@ -26,7 +29,8 @@ public class MainGameSceneState implements StateBase {
     private float SpawnNewEntityTimer = 0.0f;
     // Max timer for next entity to be spawned
     private float MaxSpawnEntityTimer = 1.f;
-
+    private int _screenwidth = 0;
+    private int _screenheight = 0;
 
     private boolean pattern1Start = true;
     private int _noOfSpike = 0;
@@ -122,7 +126,8 @@ public class MainGameSceneState implements StateBase {
 
         if(timer == 63)
         {
-            SmurfEntityTest.Create();
+            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
+            //SmurfEntityTest.Create();
         }
         if(timer == 70)
         {
@@ -134,32 +139,36 @@ public class MainGameSceneState implements StateBase {
         }
         if(timer == 86)
         {
-            SmurfEntityTest.Create();
+            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
         }
         if(timer == 98)
         {
-            TwoBlockWall.Create();
+            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
+            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -180);
+          //  TwoBlockWall.Create();
         }
         if(timer == 157)
         {
-            CoinEntity.Create();
-            SmurfEntityTest.Create();
+            //CoinEntity.Create();
+            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
         }
         if(timer == 170)
         {
-            TwoBlockWall.Create();
+                        SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
+            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -180);
         }
         if(timer == 182)
         {
-            SmurfEntityTest.Create();
+            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
         }
         if(timer == 195)
         {
-            TwoBlockWall.Create();
+                        SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
+            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -180);
         }
         if(timer == 208)
         {
-            SmurfEntityTest.Create();
+            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
         }
         if(timer == 223)
         {
@@ -168,7 +177,7 @@ public class MainGameSceneState implements StateBase {
 
 //        if(timer == 243)
 //        {
-//            SmurfEntityTest.Create();
+//            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
 //        }
         if(timer == 273)
         {
@@ -177,12 +186,13 @@ public class MainGameSceneState implements StateBase {
 
         if(timer == 320)
         {
-            SmurfEntityTest.Create();
+            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
         }
 
         if(timer == 333)
         {
-            TwoBlockWall.Create();
+            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
+            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 +250);
         }
         if(timer == 340)
         {
@@ -190,12 +200,14 @@ public class MainGameSceneState implements StateBase {
         }
         if(timer == 350)
         {
-            TwoBlockWall.Create();
+            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
+            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -180);
         }
 
         if(timer == 367)
         {
-            TwoBlockWall.Create();
+            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
+            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -180);
         }
 
         if(timer == 400)
@@ -215,11 +227,11 @@ public class MainGameSceneState implements StateBase {
 
         if(timer == 530)
         {
-            SmurfEntityTest.Create();
+            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
         }
         if(timer == 570)
         {
-            SmurfEntityTest.Create();
+            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
         }
 
 
@@ -289,12 +301,12 @@ public class MainGameSceneState implements StateBase {
 
         if(timer == 1013)
         {
-            SmurfEntityTest.Create();
+            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
         }
 
         if(timer == 1183)
         {
-            SmurfEntityTest.Create();
+            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
         }
         if(timer == 1189)
         {
@@ -302,7 +314,7 @@ public class MainGameSceneState implements StateBase {
         }
         if(timer == 1213)
         {
-            SmurfEntityTest.Create();
+            SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
         }
         if(timer == 1219)
         {
@@ -370,21 +382,23 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void OnEnter(SurfaceView _view)
     {
-        wanGoBack = false;
 
+        wanGoBack = false;
+        _screenwidth = _view.getWidth();
+        _screenheight = _view.getHeight();
         GameSystem.Instance.SetIsPaused(false);
+        GameSystem.Instance.SetIsDead(false);
         RenderBackground.Create();
         RenderTextEntity.Create();
         Floor.Create();
         PauseButtonEntity.Create();
         PlayerEntity.Create();
-        CoinEntity.Create();
+        //CoinEntity.Create();
         SwapGravButtonEntity.Create();
         BackToMainMenuButtonEntity.Create();
+        CoinEntity.CreateNew(1280,278);
 
         AudioManager.Instance.PlayAudio(R.raw.musicbackground,0.1f);
-
-
 
     }
 
@@ -417,12 +431,14 @@ public class MainGameSceneState implements StateBase {
         //if(AudioManager.Instance.IsPlaying()
         if(wanGoBack)
         {
+           // StateManager.Instance.Start("Levelselect");
             StateManager.Instance.ChangeState("Levelselect");
+
         }
         //timer += _dt;
-
+        GamePage.Instance.Update(_dt);
         EntityManager.Instance.Update(_dt);
-        if (GameSystem.Instance.GetIsPaused())
+        if (GameSystem.Instance.GetIsPaused() && GameSystem.Instance.GetIsDead())
             return;
 
         WallTimer += _dt;
@@ -431,43 +447,8 @@ public class MainGameSceneState implements StateBase {
         SpeedUpTimer += _dt;
         SlowDownTimer += _dt;
 
-       // System.out.println(timer);
-
         // ToDo: If got time change from hardcode to using patterns
-//        if(pattern1Start)
-//        {
-//            SpawnSpike(1);
-//            if(SpawnNewEntityTimer >= MaxSpawnEntityTimer) {
-//                // System.out.println("Wall Spawned");
-//                SpawnWall(1, _dt);
-//                SpawnNewEntityTimer = 0;
-//                pattern1Start = false;
-//            }
-//
-//        }
         LevelHC(1);
-        //System.out.println(pattern1Start);
-//        if(WallTimer)
-//        {
-//            System.out.println("Wall Created");
-//            TwoBlockWall.Create();
-//        }
-        //System.out.println(WallTimer);
-
-//       if(pattern1Start)
-//       {
-//            if (i < 3)
-//            {
-//                SpikeTimer += _dt;
-//                if (SpikeTimer >= 0.2)
-//                {
-//                    SpikeEntity.Create();
-//                    System.out.println("Spawn");
-//                    i++;
-//                    SpikeTimer = 0;
-//                }
-//            }
-//        }
     }
 
     @Override

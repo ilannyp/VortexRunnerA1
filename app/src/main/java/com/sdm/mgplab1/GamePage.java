@@ -15,6 +15,7 @@ import android.view.WindowManager;
 public class GamePage extends Activity implements StateBase {
 
     public static GamePage Instance = null;
+    Intent intent = new Intent();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,6 @@ public class GamePage extends Activity implements StateBase {
 
     @Override
     public void OnEnter(SurfaceView _view) {
-
     }
 
     @Override
@@ -63,7 +63,13 @@ public class GamePage extends Activity implements StateBase {
 
     @Override
     public void Update(float _dt) {
-
+//        if(MainGameSceneState.wanGoBack)
+//        {
+//            intent.setClass(this, Levelselect.class);
+//            StateManager.Instance.ChangeState("LevelSelect");
+//            startActivity(intent);
+//        }
+        //System.out.println(MainGameSceneState.wanGoBack);
     }
 
     @Override

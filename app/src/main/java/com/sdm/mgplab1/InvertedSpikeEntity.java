@@ -37,7 +37,7 @@ public class InvertedSpikeEntity implements EntityBase , Collidable{
 
     }
     public void Update(float _dt) {
-        if (GameSystem.Instance.GetIsPaused())
+        if (GameSystem.Instance.GetIsPaused() || GameSystem.Instance.GetIsDead())
             return;
         spritesheet.Update(_dt);
         AddForceTowardsLeft(40);
@@ -130,6 +130,11 @@ public class InvertedSpikeEntity implements EntityBase , Collidable{
 
     @Override
     public void OnBoxHit(Collidable _other) {
+
+    }
+
+    @Override
+    public void OnCoinHit(Collidable _other) {
 
     }
 

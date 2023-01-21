@@ -85,8 +85,8 @@ public class EntityManager {
                         }
                         PlayerEntity.Falling = true;
 
-                        if(Collision.AABB(first.GetPosX(), first.GetPosY(),first.GetWidth(), first.GetHeight(), second.GetPosX(), second.GetPosY(), second.GetWidth(), second.GetHeight())
-                                && Collision.CollideWithSide(first.GetPosX(), first.GetPosY(),first.GetWidth(), first.GetHeight(), second.GetPosX(), second.GetPosY(), second.GetWidth(), second.GetHeight()))
+                        if(Collision.AABB(first.GetPosX(), first.GetPosY(),first.GetWidth(), first.GetHeight(), second.GetPosX(), second.GetPosY(), second.GetWidth(), second.GetHeight()))
+                                //&& Collision.CollideWithSide(first.GetPosX(), first.GetPosY(),first.GetWidth(), first.GetHeight(), second.GetPosX(), second.GetPosY(), second.GetWidth(), second.GetHeight()))
                         {
                             //System.out.println(first.GetHeight());
                             first.OnBoxHit(second);
