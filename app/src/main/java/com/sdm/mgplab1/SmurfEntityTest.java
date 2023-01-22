@@ -118,7 +118,7 @@ public class SmurfEntityTest implements EntityBase , Collidable{
 
     @Override
     public float GetRadius() {
-        return 55.0f;
+        return 85.0f;
     }
 
     @Override

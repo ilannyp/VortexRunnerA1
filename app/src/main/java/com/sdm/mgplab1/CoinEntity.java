@@ -34,8 +34,6 @@ public class CoinEntity implements EntityBase , Collidable{
             return;
         spritesheet.Update(_dt);
         AddForceTowardsLeft(40);
-        System.out.println("xPos:" + xPos);
-        System.out.println("yPos:" + yPos);
         if(xPos < -2) { isDone = true;}
     }
 
@@ -95,11 +93,13 @@ public class CoinEntity implements EntityBase , Collidable{
     @Override
     public void OnBoxHit(Collidable _other) {
         if(_other.GetType() == "PlayerEntity"){
-            int testScore = GameSystem.Instance.GetIntFromSave("Score") + 5;
+            int testScore = GameSystem.Instance.GetIntFromSave("Score") + 20;
+            isDone = true;
             GameSystem.Instance.SaveEditBegin();
             GameSystem.Instance.SetIntInSave("Score", testScore);
             GameSystem.Instance.SaveEditEnd();
-            SetStatus(false);
+
+            //SetStatus(false);
         }
     }
 

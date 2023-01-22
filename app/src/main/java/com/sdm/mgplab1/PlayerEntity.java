@@ -308,6 +308,10 @@ public class PlayerEntity implements EntityBase , Collidable{
 
     @Override
     public void OnBoxHit(Collidable _other) {
+        if(_other.GetType() == "Coin")
+        {
+            return;
+        }
         Falling  = false;
         //Collision Detection
 
