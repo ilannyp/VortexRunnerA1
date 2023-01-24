@@ -14,6 +14,8 @@ public class AudioManager {
     private SurfaceView view = null;
     private HashMap<Integer, MediaPlayer> audioMap = new HashMap<Integer, MediaPlayer>();
 
+    float masterVolume = 1.0f;
+
     private AudioManager()
     {
 
@@ -29,17 +31,19 @@ public class AudioManager {
 
     public void PlayAudio(int _id, float _volume) {
         if (audioMap.containsKey(_id)) {
+
 //            audioMap.get(_id).reset();
 //            audioMap.get(_id).start();
             //have the clip
             MediaPlayer curr = audioMap.get(_id);
             curr.seekTo(0);
-            curr.setVolume(_volume, _volume);
+            curr.setVolume(_volume * masterVolume, _volume * masterVolume);
+
             curr.start();
         } else{
             MediaPlayer curr = MediaPlayer.create(view.getContext(), _id);
             audioMap.put(_id,curr);
-            curr.setVolume(_volume, _volume);
+            curr.setVolume(_volume  * masterVolume, _volume  * masterVolume);
             curr.start();
             }
 
@@ -53,6 +57,7 @@ public class AudioManager {
     {
         if (!audioMap.containsKey(_id))
             return false;
+
 
         return audioMap.get(_id).isPlaying();
     }
@@ -87,5 +92,10 @@ public class AudioManager {
         MediaPlayer result = MediaPlayer.create(view.getContext(), _id);
         audioMap.put(_id,result);
         return result;
+    }
+
+    public void SetMasterVolume(float vol)
+    {
+       masterVolume = vol;
     }
 }
