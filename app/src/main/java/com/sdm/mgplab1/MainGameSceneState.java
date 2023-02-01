@@ -59,66 +59,6 @@ public class MainGameSceneState implements StateBase {
     }
 
 
-    public void SpawnSpike(int NumberOfSpikes)
-    {
-        if(_noOfSpike >= NumberOfSpikes) {
-            return;
-        }
-        else if (_noOfSpike < NumberOfSpikes)
-        {
-            if(SpikeTimer >= 0.2)
-            {
-                SpikeEntity.Create();
-                System.out.println("Spawn");
-                _noOfSpike++;
-                SpikeTimer = 0;
-            }
-        }
-    }
-    public void SpawnWall(int NumberOfWalls, float _dt)
-    {
-        if(_noOfWalls >= NumberOfWalls)
-            return;
-        else if (_noOfWalls < NumberOfWalls)
-        {
-            if(WallTimer >= 0.2)
-            {
-                TwoBlockWall.Create();
-                System.out.println("Wall Spawn");
-                _noOfWalls++;
-                WallTimer = 0;
-            }
-        }
-
-    }
-    public void SpawnWallSmall(int NumberOfWalls, float _dt)
-    {
-        if(_noOfWallsSmall >= NumberOfWalls)
-            return;
-        else if (_noOfWallsSmall < NumberOfWalls)
-        {
-            if(WallTimer >= 0.2)
-            {
-                TwoBlockWall.Create();
-                System.out.println("Wall Spawn");
-                _noOfWallsSmall++;
-                WallTimer = 0;
-            }
-        }
-    }
-    public void SpawnNewEntity(int index,float _dt)
-    {
-        SpawnNewEntityTimer+= _dt;
-        switch (index)
-        {
-            case 1:
-                SpawnSpike(1);
-            case 2:
-                SpawnWallSmall(1,_dt);
-            case 3:
-                SpawnWall(1,_dt);
-        }
-    }
 
     public void LevelHC(int _dt)
     {
@@ -163,11 +103,13 @@ public class MainGameSceneState implements StateBase {
         }
         if(timer == 195)
         {
+            CoinEntity.CreateNew(_screenwidth,_screenheight * 4/9);
             SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
             SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -180);
         }
         if(timer == 208)
         {
+            CoinEntity.CreateNew(_screenwidth,_screenheight * 6/9);
             SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
         }
         if(timer == 223)
@@ -181,6 +123,7 @@ public class MainGameSceneState implements StateBase {
 //        }
         if(timer == 273)
         {
+
             SpikeEntity.Create();
         }
 
@@ -196,6 +139,7 @@ public class MainGameSceneState implements StateBase {
         }
         if(timer == 340)
         {
+            CoinEntity.CreateNew(_screenwidth,_screenheight * 3/9);
             SpikeEntity.Create();
         }
         if(timer == 350)
@@ -229,8 +173,11 @@ public class MainGameSceneState implements StateBase {
         {
             SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
         }
+        if(timer == 530)
+            CoinEntity.CreateNew(_screenwidth,_screenheight * 6/9);
         if(timer == 570)
         {
+            CoinEntity.CreateNew(_screenwidth,_screenheight * 6/9);
             SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
         }
 
@@ -239,6 +186,7 @@ public class MainGameSceneState implements StateBase {
         {
             //        xPos = _view.getWidth() ;
             //        yPos = _view.getHeight() * 1/9;
+            CoinEntity.CreateNew(_screenwidth,_screenheight * 3/9);
             SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 1/9);
         }
 
@@ -283,6 +231,7 @@ public class MainGameSceneState implements StateBase {
         }
         if(timer == 857) //208 - 195
         {
+            CoinEntity.CreateNew(_screenwidth,_screenheight * 4/9);
             SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 1/9);
         }
         if(timer == 873) //223 - 208
@@ -291,6 +240,7 @@ public class MainGameSceneState implements StateBase {
         }
         if(timer == 913)
         {
+            CoinEntity.CreateNew(_screenwidth,_screenheight * 6/9);
             SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 1/9);
             SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 1/9 +180);
             SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 1/9 +360);
@@ -298,6 +248,7 @@ public class MainGameSceneState implements StateBase {
 
         if(timer == 963)
         {
+            CoinEntity.CreateNew(_screenwidth,_screenheight * 4/9);
             SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
             SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -180);
             SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -360);
@@ -305,6 +256,7 @@ public class MainGameSceneState implements StateBase {
 
         if(timer == 1003)
         {
+            CoinEntity.CreateNew(_screenwidth,_screenheight * 6/9);
             SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 1/9);
             SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 1/9 +180);
             SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 +360);
@@ -448,7 +400,7 @@ public class MainGameSceneState implements StateBase {
         //timer += _dt;
         GamePage.Instance.Update(_dt);
         EntityManager.Instance.Update(_dt);
-        if (GameSystem.Instance.GetIsPaused() && GameSystem.Instance.GetIsDead())
+        if (GameSystem.Instance.GetIsPaused() || GameSystem.Instance.GetIsDead())
             return;
 
         WallTimer += _dt;

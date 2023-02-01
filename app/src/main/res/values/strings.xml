@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">mgplab1</string>
+    <string name="app_name">VortexRunner</string>
+    <string name="facebook_app_id">1205845453377928</string>
+    <string name="fb_login_protocol_scheme">fb1205845453377928</string>
+    <string name="facebook_client_token">45baa4cc1b5770f7414c0b9f9ce48c7c</string>
 </resources>

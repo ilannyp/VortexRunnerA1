@@ -3,13 +3,8 @@ package com.sdm.mgplab1;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-
-import java.util.logging.Level;
 
 public class MainMenuLeaveConfirmDialogFragment extends DialogFragment {
     public static boolean IsShown = false;
@@ -22,7 +17,7 @@ public class MainMenuLeaveConfirmDialogFragment extends DialogFragment {
         builder.setMessage("Leave The Game?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
-                        // User triggered pause
+                        // User triggered leave
                         //GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
                         Mainmenu.leaveGame = true;
                         System.exit(0);
@@ -31,7 +26,7 @@ public class MainMenuLeaveConfirmDialogFragment extends DialogFragment {
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
-                        //User cancelled pause
+                        //User cancelled leave
                         IsShown = false;
                     }
                 });

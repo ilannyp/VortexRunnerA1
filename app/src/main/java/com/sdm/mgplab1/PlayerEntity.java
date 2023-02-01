@@ -1,19 +1,13 @@
 package com.sdm.mgplab1;
 
-import android.app.GameManager;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.drawable.shapes.RectShape;
+
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceView;
-
-import androidx.constraintlayout.solver.widgets.Rectangle;
 
 
 public class PlayerEntity implements EntityBase , Collidable{
@@ -26,9 +20,9 @@ public class PlayerEntity implements EntityBase , Collidable{
     private boolean isInit = false;
     protected static final String TAG = null;
     protected static boolean swapGrav = false;
-    public boolean _bStatus = true;
-    private int deathTimer = 0;
-
+    public boolean _bStatus = true;  // Player Status
+    private int deathTimer = 0;     // Time before switching to lose state
+    private int uponDeathCounter = 0; //For one-time uses when player dies. i.e death audio
 
     private double xPos = 0, yPos = 0;
     private static double velx;
@@ -36,33 +30,6 @@ public class PlayerEntity implements EntityBase , Collidable{
     public double Gravity = 11.8;
     public static double JumpVel = 55;  // original = 45, changing to 55 to test
     public static boolean Falling = false;
-    public boolean Jumpable = false;
-    protected Rect hitbox;
-
-
-
-    private void InitHitbox(Sprite spritesheet)
-    {
-        hitbox = new Rect((int)xPos, (int)yPos, spritesheet.GetWidth(), spritesheet.GetHeight());
-    }
-    protected void drawHitbox(Canvas canvas)
-    {
-        Paint paint;
-        paint = new Paint();
-        paint.setColor(1);
-        canvas.drawRect(hitbox,paint);
-    }
-
-    protected void UpdateHitbox()
-    {
-        hitbox.left = (int)xPos;
-        hitbox.top = (int)yPos;
-    }
-    public Rect GetHitbox()
-    {
-        return hitbox;
-    }
-
 
     public boolean IsDone() {
         return isDone;
@@ -181,7 +148,10 @@ public class PlayerEntity implements EntityBase , Collidable{
         }
         if(xPos < 0)
         {
-            AudioManager.Instance.PlayAudio(R.raw.soundfeelsbadman, 0.9f);
+            if(uponDeathCounter == 0)
+            {
+                AudioManager.Instance.PlayAudio(R.raw.soundfeelsbadman, 0.9f);
+            }
             int score = GameSystem.Instance.GetIntFromSave("Score");
             GameSystem.Instance.SaveEditBegin();
             GameSystem.Instance.SetIntInSave("HighScore", score);//set high score in "HighScore"
@@ -189,7 +159,7 @@ public class PlayerEntity implements EntityBase , Collidable{
 
             Log.v(TAG, "score: " + score);
             _bStatus = false;
-
+            uponDeathCounter = 1;
         }
         if(!_bStatus)
         {
@@ -355,13 +325,6 @@ public class PlayerEntity implements EntityBase , Collidable{
             vely = +1*vely;
         }
     }
-
-
-
-
-
-
-
 
     }
 

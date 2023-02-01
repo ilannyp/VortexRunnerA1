@@ -37,6 +37,7 @@ public class GameSystem {
         StateManager.Instance.AddState(new MainGameSceneState());
         StateManager.Instance.AddState(new Levelselect());
         StateManager.Instance.AddState(new LoseState());
+        StateManager.Instance.AddState(new WinState());
     }
 
     public void SetIsPaused(boolean _newIsPaused) {

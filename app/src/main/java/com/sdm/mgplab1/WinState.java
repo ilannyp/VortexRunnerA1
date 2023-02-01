@@ -10,14 +10,37 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.content.Intent;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class WinState extends Activity implements OnClickListener, StateBase {
     protected boolean _active = true;
+    private ImageButton btn_leave;
+    private TextView scoreText;
+    private  TextView highScoreText;
+    String GetHighScoreString;
+    String GetHighestScoreString;
+    private int GetHighScore = 0;
+    private int GetHighestScore = 0;
+    protected static final String TAG = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        GetHighScore = GameSystem.Instance.GetIntFromSave("Score");
+        GetHighScoreString = String.format("SCORE : %d", GameSystem.Instance.GetIntFromSave("Score"));
+
+        if( GameSystem.Instance.GetIntFromSave("HighestScore") < GetHighScore)
+        {
+            //store new highest score
+            GameSystem.Instance.SaveEditBegin();
+            GameSystem.Instance.SetIntInSave("HighestScore", GetHighScore);//set high score in "HighScore"
+            GameSystem.Instance.SaveEditEnd();
+
+        }
+
+        GetHighestScoreString = String.format("HIGHSCORE : %d", GameSystem.Instance.GetIntFromSave("HighestScore"));
         // Hide Title
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -27,28 +50,27 @@ public class WinState extends Activity implements OnClickListener, StateBase {
 
         setContentView(R.layout.winscreen);
 
-//        btn_start = (Button)findViewById(R.id.btn_start);
-//        btn_start.setOnClickListener(this); //Set Listener to this button --> Start Button
-//
-//        btn_back = (Button)findViewById(R.id.btn_back);
-//        btn_back.setOnClickListener(this); //Set Listener to this button --> Back Button
-//
-//        btn_option = (Button)findViewById(R.id.btn_option);
-//        btn_option.setOnClickListener(this); //Set Listener to this button --> Back Button
-//
-        StateManager.Instance.AddState(new WinState());
-    }
-    public boolean onTouchEvent(MotionEvent event){
-        if(event.getAction() == MotionEvent.ACTION_DOWN){
-            WinState.this.finish();
-            Intent intent = new Intent(WinState.this, Mainmenu.class);
-            startActivity(intent);
-        }
-        return true;
-    }
-    @Override
-    public void onClick(View view) {
+        btn_leave = (ImageButton)findViewById(R.id.btn_leave);
+        btn_leave.setOnClickListener(this); //Set Listener to this button --> Start Button
 
+        scoreText = (TextView)findViewById(R.id.ScoreText);
+        scoreText.setText(GetHighScoreString);
+
+        highScoreText = (TextView)findViewById(R.id.HighScoreText);
+        highScoreText.setText(GetHighestScoreString);
+
+        //StateManager.Instance.AddState(new WinState());
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent();
+        if(v==btn_leave){
+            WinState.this.finish();
+            Levelselect.level.finish();     // end the activity
+            intent.setClass(WinState.this,Mainmenu.class);
+        }
+        startActivity(intent);
     }
 
     @Override
@@ -58,7 +80,13 @@ public class WinState extends Activity implements OnClickListener, StateBase {
 
     @Override
     public void OnEnter(SurfaceView _view) {
+        GetHighScore = GameSystem.Instance.GetIntFromSave("HighScore");
+        GetHighScoreString = String.format("SCORE : %d", GameSystem.Instance.GetIntFromSave("HighScore"));
 
+        if(GetHighestScore < GetHighScore)
+            GetHighestScore = GetHighScore;
+
+        GetHighestScoreString = String.format("HIGHSCORE : %d", GetHighestScore);
     }
 
     @Override
@@ -68,7 +96,7 @@ public class WinState extends Activity implements OnClickListener, StateBase {
 
     @Override
     public void Render(Canvas _canvas) {
-
+        EntityManager.Instance.Render(_canvas);
     }
 
     @Override

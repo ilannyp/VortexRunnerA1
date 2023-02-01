@@ -21,7 +21,7 @@
         android:layout_height="93dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="102dp"
         android:layout_marginRight="0dp"
         android:text="You got : Score"
         android:textAlignment="center"
@@ -34,12 +34,32 @@
         android:layout_height="93dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="138dp"
-        android:layout_marginRight="-5dp"
+        android:layout_marginTop="170dp"
+        android:layout_marginRight="-1dp"
         android:text="HighScore: score"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="50dp" />
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="57dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="232dp"
+        android:layout_marginRight="41dp"
+        android:layout_marginBottom="30dp" />
+
+    <com.facebook.login.widget.ProfilePictureView
+        android:id="@+id/picture"
+        android:layout_width="224dp"
+        android:layout_height="125dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="102dp"
+        android:layout_marginRight="-40dp"
+        android:layout_marginBottom="30dp" />
 
 </RelativeLayout>
