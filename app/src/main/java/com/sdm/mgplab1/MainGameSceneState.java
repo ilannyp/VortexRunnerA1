@@ -1,12 +1,9 @@
 package com.sdm.mgplab1;
 
-import android.app.Activity;
-import android.app.GameManager;
-import android.bluetooth.le.ScanSettings;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Vibrator;
 import android.text.method.Touch;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -19,10 +16,6 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 
 public class MainGameSceneState implements StateBase {
     private float timer = 0.0f;
-    private float WallTimer = 0.0f;
-    private float SpikeTimer = 0.0f;
-    private float SpeedUpTimer = 0.0f;
-    private float SlowDownTimer = 0.0f;
     private boolean gameWon = false;
     public static boolean wanGoBack;
     // Timer for next entity to be spawned
@@ -32,29 +25,19 @@ public class MainGameSceneState implements StateBase {
     private int _screenwidth = 0;
     private int _screenheight = 0;
 
-    private boolean pattern1Start = true;
-    private int _noOfSpike = 0;
-    private int _noOfWalls = 0;
-    private int _noOfWallsSmall = 0;
+
     protected static final String TAG = null;
 
-    public void Reset()
-    {
+
+    public void Reset() {
         wanGoBack = false;
       timer = 0.0f;
-      WallTimer = 0.0f;
-      SpikeTimer = 0.0f;
-      SpeedUpTimer = 0.0f;
-      SlowDownTimer = 0.0f;
       gameWon = false;
       // Timer for next entity to be spawned
         SpawnNewEntityTimer = 0.0f;
         // Max timer for next entity to be spawned
         MaxSpawnEntityTimer = 1.f;
-       pattern1Start = true;
-        _noOfSpike = 0;
-        _noOfWalls = 0;
-        _noOfWallsSmall = 0;
+
         final String TAG = null;
     }
 
@@ -355,7 +338,6 @@ public class MainGameSceneState implements StateBase {
         Floor.Create();
         PauseButtonEntity.Create();
         PlayerEntity.Create();
-        //CoinEntity.Create();
         SwapGravButtonEntity.Create();
         BackToMainMenuButtonEntity.Create();
         CoinEntity.CreateNew(_screenwidth,_screenheight * 6/9);
@@ -403,11 +385,7 @@ public class MainGameSceneState implements StateBase {
         if (GameSystem.Instance.GetIsPaused() || GameSystem.Instance.GetIsDead())
             return;
 
-        WallTimer += _dt;
         SpawnNewEntityTimer+= _dt;
-        SpikeTimer+= _dt;
-        SpeedUpTimer += _dt;
-        SlowDownTimer += _dt;
 
         // ToDo: If got time change from hardcode to using patterns
         LevelHC(1);

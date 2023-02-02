@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -14,6 +17,7 @@ public class PlayerEntity implements EntityBase , Collidable{
 
     private Bitmap bmp = null;
     private Bitmap sbmp = null;
+    private Bitmap sbmp2 = null;
     private Sprite spritesheet=null;//If want to animate our player
     private int ScreenWidth, ScreenHeight;
     private boolean isDone = false;
@@ -30,6 +34,8 @@ public class PlayerEntity implements EntityBase , Collidable{
     public double Gravity = 11.8;
     public static double JumpVel = 55;  // original = 45, changing to 55 to test
     public static boolean Falling = false;
+    private Vibrator _vibrate;
+
 
     public boolean IsDone() {
         return isDone;
@@ -43,6 +49,9 @@ public class PlayerEntity implements EntityBase , Collidable{
     //@Override
     public void Init(SurfaceView _view){
         swapGrav = false;
+
+        _vibrate = (Vibrator)_view.getContext().getSystemService (_view.getContext().VIBRATOR_SERVICE);
+
         GameSystem.Instance.SaveEditBegin();
         GameSystem.Instance.SetIntInSave("Score",0);
         GameSystem.Instance.SaveEditEnd();
@@ -55,21 +64,21 @@ public class PlayerEntity implements EntityBase , Collidable{
 
         sbmp = Bitmap.createScaledBitmap(bmp, (int)(ScreenWidth)/12,
                 (int) (ScreenHeight)/7,true);
-        spritesheet = new Sprite(bmp, 1,1,16);    //If want to animated our player
-       // InitHitbox(spritesheet);
-        // TODO: Uncomment Irfan's JumpVel value
-        //JumpVel = ScreenHeight * 0.075  ;
-        //JumpVel = ScreenHeight * 0.065;
+
+        //If want to animated our player
+        spritesheet = new Sprite(BitmapFactory.decodeResource(_view.getResources(),R.drawable.deathanim),
+                3, 3, 7);
 
         xPos = ScreenWidth / 6;
-        //yPos = 296;
         yPos = ScreenHeight * 8/9;
         isInit = true;
         TouchManager.Instance.setTouchState(TouchManager.TouchState.NONE);
+
     }
     public void Update(float _dt) {
         if (GameSystem.Instance.GetIsPaused())
             return;
+        spritesheet.Update(_dt);
         xPos+=velx;
         yPos+=vely;
 
@@ -82,9 +91,6 @@ public class PlayerEntity implements EntityBase , Collidable{
         GameSystem.Instance.SaveEditEnd();
 
         String showScore = String.format("%d",GameSystem.Instance.GetIntFromSave("Score"));
-
-       // UpdateHitbox();
-
 
         CheckJump();
 
@@ -148,10 +154,7 @@ public class PlayerEntity implements EntityBase , Collidable{
         }
         if(xPos < 0)
         {
-            if(uponDeathCounter == 0)
-            {
-                AudioManager.Instance.PlayAudio(R.raw.soundfeelsbadman, 0.9f);
-            }
+
             int score = GameSystem.Instance.GetIntFromSave("Score");
             GameSystem.Instance.SaveEditBegin();
             GameSystem.Instance.SetIntInSave("HighScore", score);//set high score in "HighScore"
@@ -159,13 +162,25 @@ public class PlayerEntity implements EntityBase , Collidable{
 
             Log.v(TAG, "score: " + score);
             _bStatus = false;
-            uponDeathCounter = 1;
+
         }
         if(!_bStatus)
         {
+            if(uponDeathCounter == 0)
+            {
+                AudioManager.Instance.PlayAudio(R.raw.soundfeelsbadman, 0.9f);
+                if(Build.VERSION.SDK_INT >= 26)
+                    _vibrate.vibrate(VibrationEffect.createOneShot(150,10));
+                else
+                {
+                    long pattern[] = {0,50,0};
+                    _vibrate.vibrate(pattern, 1);
+                }
+            }
+            uponDeathCounter = 1;
             GameSystem.Instance.SetIsDead(true);
             deathTimer += 1;
-            System.out.println(deathTimer);
+            //System.out.println(deathTimer);
             if(deathTimer > 60)
             {
                 GamePage.Instance.SetEnd();
@@ -185,7 +200,7 @@ public class PlayerEntity implements EntityBase , Collidable{
 
         if(TouchManager.Instance.HasTouch()){
             float imgRad = spritesheet.GetWidth() * 2.5f;
-            if (Collision.SphereToSphere((float) TouchManager.Instance.GetPosX(), (float) TouchManager.Instance.GetPosY(),0.0f, (float) xPos, (float) yPos,imgRad)){
+            if (Collision.SphereToSphere((float) TouchManager.Instance.GetPosX(), (float) TouchManager.Instance.GetPosY(),0.0f, (float) xPos, (float) yPos,imgRad) && _bStatus){
                 if (vely == 0)
                 {
                     Log.v(TAG,"can jump");
@@ -214,7 +229,11 @@ public class PlayerEntity implements EntityBase , Collidable{
         {
             //drawHitbox(_canvas);
             _canvas.drawBitmap(sbmp, (int) (xPos - sbmp.getWidth()*0.5f), (int) (yPos - sbmp.getHeight()*0.5f), null);
-            //spritesheet.Render(_canvas, (int)xPos,(int)yPos); //If want to animate our player
+             //If want to animate our player
+        }
+        else
+        {
+            spritesheet.Render(_canvas, (int) (xPos - sbmp.getWidth()*0.5f), (int) (yPos - sbmp.getHeight()*0.5f));
 
         }
     }
