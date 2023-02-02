@@ -99,7 +99,7 @@ public class CoinEntity implements EntityBase , Collidable{
             GameSystem.Instance.SetIntInSave("Score", testScore);
             GameSystem.Instance.SaveEditEnd();
 
-            AudioManager.Instance.PlayAudio(R.raw.coinpickup, 1.0f);
+            AudioManager.Instance.PlayAudio(R.raw.coinpickup, 0.3f);
             //SetStatus(false);
         }
     }

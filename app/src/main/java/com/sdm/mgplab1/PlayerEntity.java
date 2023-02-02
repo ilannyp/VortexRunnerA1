@@ -286,7 +286,7 @@ public class PlayerEntity implements EntityBase , Collidable{
     @Override
     public float GetRadius() {
 
-        return 55.0f;
+        return 65.0f;
     }
 
     @Override

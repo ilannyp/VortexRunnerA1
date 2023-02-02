@@ -54,6 +54,14 @@ public class Option extends Activity implements View.OnClickListener , StateBase
             @Override
             public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
                 AudioManager.Instance.SetMasterVolume(slider.getValue());
+                if(slider.getValue() == 0.0f)
+                {
+                    bMuted = true;
+                }
+                else
+                {
+                    bMuted = false;
+                }
             }
         });
 
@@ -82,10 +90,13 @@ public class Option extends Activity implements View.OnClickListener , StateBase
             {
                 imgbtn_mute.setBackgroundResource(R.drawable.mute);
                 AudioManager.Instance.SetMasterVolume(0.0f);
+                slider_volume.setValue(0.0f);
             }else
             {
                 imgbtn_mute.setBackgroundResource(R.drawable.unmute);
                 AudioManager.Instance.SetMasterVolume(1.0f);
+                slider_volume.setValue(1.0f);
+
 
             }
         }
@@ -95,12 +106,12 @@ public class Option extends Activity implements View.OnClickListener , StateBase
         {
             if(GameSystem.Instance.CheckSharedPref())
             {
-                if(GameSystem.Instance.CheckSavedPrefs("MasterVolumeSaved"))
-                {
+                //if(GameSystem.Instance.CheckSavedPrefs("MasterVolumeSaved"))
+                //{
                     GameSystem.Instance.SaveEditBegin();
                     GameSystem.Instance.SetFloatInSave("MasterVolumeSaved", AudioManager.Instance.GetMasterVolume());//set high score in "HighScore"
                     GameSystem.Instance.SaveEditEnd();
-                }
+                //}
             }
             Intent intent = new Intent();
 
@@ -123,11 +134,14 @@ public class Option extends Activity implements View.OnClickListener , StateBase
         if(bMuted)
         {
             imgbtn_mute.setBackgroundResource(R.drawable.mute);
+            slider_volume.setValue(0f);
 
         }else
         {
             imgbtn_mute.setBackgroundResource(R.drawable.unmute);
         }
+
+
 
     }
     @Override
@@ -154,6 +168,8 @@ public class Option extends Activity implements View.OnClickListener , StateBase
         {
             imgbtn_mute.setBackgroundResource(R.drawable.unmute);
         }
+
+
     }
 
     @Override

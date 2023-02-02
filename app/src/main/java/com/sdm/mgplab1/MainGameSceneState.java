@@ -88,7 +88,7 @@ public class MainGameSceneState implements StateBase {
         {
             CoinEntity.CreateNew(_screenwidth,_screenheight * 4/9);
             SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
-            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -180);
+            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -210);
         }
         if(timer == 208)
         {
@@ -118,7 +118,7 @@ public class MainGameSceneState implements StateBase {
         if(timer == 333)
         {
             SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
-            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -180);
+            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -210);
         }
         if(timer == 340)
         {
@@ -128,13 +128,13 @@ public class MainGameSceneState implements StateBase {
         if(timer == 350)
         {
             SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
-            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -180);
+            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -210);
         }
 
         if(timer == 367)
         {
             SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
-            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -180);
+            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -210);
         }
 
         if(timer == 400)
@@ -233,7 +233,7 @@ public class MainGameSceneState implements StateBase {
         {
             CoinEntity.CreateNew(_screenwidth,_screenheight * 4/9);
             SmurfEntityTest.CreateNew(_screenwidth,_screenheight * 8/9);
-            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -180);
+            SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -210);
             SmurfEntityTest.CreateNew(_screenwidth, _screenheight * 8/9 -360);
         }
 
