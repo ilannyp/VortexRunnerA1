@@ -30,6 +30,7 @@ import com.facebook.share.widget.ShareDialog;
 
 import java.util.Arrays;
 
+// To test out with FB
 public class Scorepage extends Activity implements View.OnClickListener {
     public static Scorepage Instance = null;
     public static final String SHARED_PREF_ID = "GameSaveFile";

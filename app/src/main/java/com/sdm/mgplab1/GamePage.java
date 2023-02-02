@@ -63,13 +63,7 @@ public class GamePage extends Activity implements StateBase {
 
     @Override
     public void Update(float _dt) {
-//        if(MainGameSceneState.wanGoBack)
-//        {
-//            intent.setClass(this, Levelselect.class);
-//            StateManager.Instance.ChangeState("LevelSelect");
-//            startActivity(intent);
-//        }
-        //System.out.println(MainGameSceneState.wanGoBack);
+
     }
 
     @Override

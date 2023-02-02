@@ -82,7 +82,6 @@ public class PlayerEntity implements EntityBase , Collidable{
         xPos+=velx;
         yPos+=vely;
 
-        //System.out.println(spritesheet.GetHeight());
         int testScore = GameSystem.Instance.GetIntFromSave("Score");
         if (!GameSystem.Instance.GetIsDead())
             ++testScore;
@@ -160,7 +159,7 @@ public class PlayerEntity implements EntityBase , Collidable{
             GameSystem.Instance.SetIntInSave("HighScore", score);//set high score in "HighScore"
             GameSystem.Instance.SaveEditEnd();
 
-            Log.v(TAG, "score: " + score);
+           // Log.v(TAG, "score: " + score);
             _bStatus = false;
 
         }
@@ -180,7 +179,6 @@ public class PlayerEntity implements EntityBase , Collidable{
             uponDeathCounter = 1;
             GameSystem.Instance.SetIsDead(true);
             deathTimer += 1;
-            //System.out.println(deathTimer);
             if(deathTimer > 60)
             {
                 GamePage.Instance.SetEnd();
@@ -203,7 +201,7 @@ public class PlayerEntity implements EntityBase , Collidable{
             if (Collision.SphereToSphere((float) TouchManager.Instance.GetPosX(), (float) TouchManager.Instance.GetPosY(),0.0f, (float) xPos, (float) yPos,imgRad) && _bStatus){
                 if (vely == 0)
                 {
-                    Log.v(TAG,"can jump");
+                   // Log.v(TAG,"can jump");
                     AudioManager.Instance.PlayAudio(R.raw.jump,1.0f);
                     if(!swapGrav)
                     {
@@ -214,8 +212,8 @@ public class PlayerEntity implements EntityBase , Collidable{
                         vely = JumpVel;
 
                     }
-                    Log.v(TAG, "vely" + (vely));
-                    Log.v(TAG, "posY" + (yPos));
+                 //   Log.v(TAG, "vely" + (vely));
+                 //   Log.v(TAG, "posY" + (yPos));
 
                 }
             }

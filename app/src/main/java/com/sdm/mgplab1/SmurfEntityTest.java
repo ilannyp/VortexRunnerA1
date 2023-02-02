@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceView;
 
+// SmurfEntityTest is the Cube obstacle, didn't rename
 public class SmurfEntityTest implements EntityBase , Collidable{
 
     private Bitmap bmp = null;
