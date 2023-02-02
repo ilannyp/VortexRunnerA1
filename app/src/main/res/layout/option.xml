@@ -58,13 +58,38 @@
         android:id="@+id/MuteImageBtn"
         android:layout_width="97dp"
         android:layout_height="76dp"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="193dp"
-        android:layout_marginTop="124dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="122dp"
+        android:layout_marginRight="61dp"
         android:background="@null"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/unmute" />
+
+
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/VolSlider"
+        android:layout_width="356dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:valueFrom="0"
+        android:valueTo="1"
+        app:trackColorInactive="@color/white"
+        app:thumbRadius="25dp"
+        android:layout_marginTop="135dp"
+        android:layout_marginRight="177dp" />
+
+<!--    <com.google.android.material.slider.Slider-->
+<!--        android:id="@+id/VolSlider"-->
+<!--        android:layout_width="356dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginTop="137dp"-->
+<!--        android:layout_marginEnd="178dp"-->
+<!--        app:trackColorInactive="@color/material_dynamic_neutral100"/>-->
 
 
 </RelativeLayout>

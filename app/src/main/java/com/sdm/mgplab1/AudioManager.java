@@ -23,10 +23,13 @@ public class AudioManager {
 
     public void Init(SurfaceView _view)
     {
+
+
+
         view = _view;
+        //GameSystem.Instance.Init(_view);
         //res = _view.getResources();
         Release();//clear the audiomap
-
     }
 
     public void PlayAudio(int _id, float _volume) {
@@ -98,4 +101,7 @@ public class AudioManager {
     {
        masterVolume = vol;
     }
+    public float GetMasterVolume() {return masterVolume;}
+
+
 }

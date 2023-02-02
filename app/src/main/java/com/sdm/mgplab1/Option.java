@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.material.slider.Slider;
 
 public class Option extends Activity implements View.OnClickListener , StateBase{
@@ -22,8 +24,8 @@ public class Option extends Activity implements View.OnClickListener , StateBase
     private Button btn_back;
     private Slider slider_volume;
     private ImageButton imgbtn_mute;
-
-    boolean bMuted = false;
+    public static boolean bMuted;
+    public static float fSliderVal;
     protected static final String TAG = null;
 
     @Override
@@ -45,9 +47,22 @@ public class Option extends Activity implements View.OnClickListener , StateBase
         imgbtn_mute = (ImageButton)findViewById(R.id.MuteImageBtn) ;
         imgbtn_mute.setOnClickListener(this);
 
-        imgbtn_mute.setBackgroundResource(R.drawable.unmute);
+        slider_volume = (Slider) findViewById(R.id.VolSlider);
 
 
+        slider_volume.addOnChangeListener(new Slider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                AudioManager.Instance.SetMasterVolume(slider.getValue());
+            }
+        });
+
+        if(bMuted)
+            imgbtn_mute.setBackgroundResource(R.drawable.mute);
+        else
+            imgbtn_mute.setBackgroundResource(R.drawable.unmute);
+
+        slider_volume.setValue(fSliderVal);
         StateManager.Instance.AddState(new Option());
     }
 
@@ -78,6 +93,15 @@ public class Option extends Activity implements View.OnClickListener , StateBase
 
         if (view == btn_back)
         {
+            if(GameSystem.Instance.CheckSharedPref())
+            {
+                if(GameSystem.Instance.CheckSavedPrefs("MasterVolumeSaved"))
+                {
+                    GameSystem.Instance.SaveEditBegin();
+                    GameSystem.Instance.SetFloatInSave("MasterVolumeSaved", AudioManager.Instance.GetMasterVolume());//set high score in "HighScore"
+                    GameSystem.Instance.SaveEditEnd();
+                }
+            }
             Intent intent = new Intent();
 
             Option.this.finish();
@@ -95,16 +119,41 @@ public class Option extends Activity implements View.OnClickListener , StateBase
     }
     @Override
     public void OnEnter(SurfaceView _view) {
+        slider_volume.setValue(AudioManager.Instance.GetMasterVolume());
+        if(bMuted)
+        {
+            imgbtn_mute.setBackgroundResource(R.drawable.mute);
+
+        }else
+        {
+            imgbtn_mute.setBackgroundResource(R.drawable.unmute);
+        }
 
     }
     @Override
     public void OnExit() {
 
     }
-    @Override
     public void Update(float _dt) {
 
+        if(slider_volume.getValue() == 0)
+        {
+            bMuted = true;
+        }
+        else
+        {
+            bMuted = false;
+        }
 
+
+        if(bMuted)
+        {
+            imgbtn_mute.setBackgroundResource(R.drawable.mute);
+
+        }else
+        {
+            imgbtn_mute.setBackgroundResource(R.drawable.unmute);
+        }
     }
 
     @Override
@@ -136,4 +185,7 @@ public class Option extends Activity implements View.OnClickListener , StateBase
     }
 
 
+    public void SetSlider(float _val){
+        slider_volume.setValue(_val);
+    }
 }
